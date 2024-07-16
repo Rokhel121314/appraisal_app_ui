@@ -1,0 +1,18 @@
+.container {
+  width: 100vw;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: green;
+}
+
+.logo_container {
+  width: auto;
+  padding-left: 30px;
+}
+
+.action_container {
+  width: auto;
+  padding-right: 30px;
+}
