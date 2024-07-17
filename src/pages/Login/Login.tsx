@@ -3,26 +3,32 @@ import HeaderText from "../../components/HeaderText/HeaderText";
 import InputField from "../../components/InputField/InputField";
 import { useEffect, useState } from "react";
 import Button from "../../components/Button/Button";
-import useUserStore from "../../zustand/store";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../redux/extraReducers/userReducer";
+
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const Login = () => {
   //
-  const [signUp, setSignUp] = useState<{ email: string; password: string }>({
+  const [loginDetail, setLoginDetail] = useState<{
+    email: string;
+    password: string;
+  }>({
     email: "",
     password: "",
   });
 
-  console.log("signUp:", signUp);
-  //
-  const { initialState, loginUser } = useUserStore();
-  console.log("initialState:", initialState);
+  console.log("signUp:", loginDetail);
+
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  console.log("user:", user);
 
   const [showPassword, setShowPassword] = useState<"password" | "text">(
     "password"
   );
-
-  const navigate = useNavigate();
 
   const checkbox = () => {
     if (showPassword === "password") {
@@ -30,13 +36,14 @@ const Login = () => {
     } else setShowPassword("password");
   };
 
-  useEffect(() => {
-    if (!initialState?.user.user_id) {
-      return;
-    } else {
-      navigate("signup");
-    }
-  }, [initialState]);
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!user?.user.user_id) {
+  //     return;
+  //   } else {
+  //     navigate("signup");
+  //   }
+  // }, [user]);
 
   return (
     <>
@@ -50,22 +57,22 @@ const Login = () => {
             label="Email"
             type="email"
             placeholder="spa@spaappraisal.com"
-            initialValue={signUp.email}
+            initialValue={loginDetail.email}
             required={true}
             disabled={false}
             onChangeText={(value) => {
-              setSignUp({ ...signUp, email: value });
+              setLoginDetail({ ...loginDetail, email: value });
             }}
           />
           <InputField
             label="Password"
             type={showPassword}
             placeholder="**********"
-            initialValue={signUp?.password}
+            initialValue={loginDetail?.password}
             required={true}
             disabled={false}
             onChangeText={(value) => {
-              setSignUp({ ...signUp, password: value });
+              setLoginDetail({ ...loginDetail, password: value });
             }}
           />
           <div className={styles.checkbox_container}>
@@ -76,14 +83,12 @@ const Login = () => {
             />
             <span className={styles.checkbox_text}>Show Password?</span>
           </div>
-          <div className={styles.notification_container}>
-            {initialState?.message}
-          </div>
+          <div className={styles.notification_container}>{user?.message}</div>
           <Button
             title="SIGN IN"
             tooltip=""
             onClick={() => {
-              loginUser(signUp);
+              dispatch(userLogin(loginDetail));
             }}
             disabled={false}
           />

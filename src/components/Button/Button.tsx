@@ -1,27 +1,28 @@
 import styles from "./styles.module.css";
 
-type PropType = {
+type PropTypes = {
   onClick: () => void;
   title: string;
   disabled: boolean;
   tooltip?: string;
 };
 
-const Button = (props: PropType) => {
+const Button = ({
+  disabled = false,
+  onClick,
+  tooltip = "tooltip",
+  title = "Button",
+}: PropTypes) => {
   return (
     <button
       className={styles.button}
-      title={props.tooltip}
-      disabled={props.disabled}
-      onClick={() => props.onClick()}
+      title={tooltip}
+      disabled={disabled}
+      onClick={() => onClick()}
     >
-      {props.title}
+      {title}
     </button>
   );
-};
-
-Button.defaultProps = {
-  disabled: false,
 };
 
 export default Button;
