@@ -1,54 +1,95 @@
 import styles from "./style.module.css";
-import useUserStore from "../../zustand/store";
-import { useForm, SubmitHandler } from "react-hook-form";
-// import { useState } from "react";
+import HeaderText from "../../components/HeaderText/HeaderText";
 import InputField from "../../components/InputField/InputField";
-import { FormData } from "../../types";
-
-interface LoginPayloadType {
-  email: string;
-  password: string;
-}
+import { useEffect, useState } from "react";
+import Button from "../../components/Button/Button";
+import useUserStore from "../../zustand/store";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  //
+  const [signUp, setSignUp] = useState<{ email: string; password: string }>({
+    email: "",
+    password: "",
+  });
+
+  console.log("signUp:", signUp);
+  //
   const { initialState, loginUser } = useUserStore();
-  console.log("initialState", initialState);
+  console.log("initialState:", initialState);
 
-  // REACT HOOK FORM
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm<LoginPayloadType>();
+  const [showPassword, setShowPassword] = useState<"password" | "text">(
+    "password"
+  );
 
-  const onSubmit = async (data: FormData) => {
-    loginUser(data);
+  const navigate = useNavigate();
+
+  const checkbox = () => {
+    if (showPassword === "password") {
+      setShowPassword("text");
+    } else setShowPassword("password");
   };
 
+  useEffect(() => {
+    if (!initialState?.user.user_id) {
+      return;
+    } else {
+      navigate("signup");
+    }
+  }, [initialState]);
+
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.loginContainer}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <InputField
-            type="email"
-            placeholder="Email"
-            name="email"
-            register={register}
-            error={errors.email}
-          />
+    <>
+      <main className={styles.main_container}>
+        <div className={styles.signin_container}>
+          <div className={styles.headertext_container}>
+            <HeaderText title="SIGN IN" />
+          </div>
 
           <InputField
-            type="password"
-            placeholder="Password"
-            name="password"
-            register={register}
-            error={errors.password}
+            label="Email"
+            type="email"
+            placeholder="spa@spaappraisal.com"
+            initialValue={signUp.email}
+            required={true}
+            disabled={false}
+            onChangeText={(value) => {
+              setSignUp({ ...signUp, email: value });
+            }}
           />
-          <button type="submit">LOG IN</button>
-        </form>
-      </div>
-    </div>
+          <InputField
+            label="Password"
+            type={showPassword}
+            placeholder="**********"
+            initialValue={signUp?.password}
+            required={true}
+            disabled={false}
+            onChangeText={(value) => {
+              setSignUp({ ...signUp, password: value });
+            }}
+          />
+          <div className={styles.checkbox_container}>
+            <input
+              className={styles.checkbox}
+              type="checkbox"
+              onClick={() => checkbox()}
+            />
+            <span className={styles.checkbox_text}>Show Password?</span>
+          </div>
+          <div className={styles.notification_container}>
+            {initialState?.message}
+          </div>
+          <Button
+            title="SIGN IN"
+            tooltip=""
+            onClick={() => {
+              loginUser(signUp);
+            }}
+            disabled={false}
+          />
+        </div>
+      </main>
+    </>
   );
 };
 

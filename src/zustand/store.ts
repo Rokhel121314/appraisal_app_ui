@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import Axios from "axios";
+import { devtools } from "zustand/middleware";
 
 const URL = import.meta.env.VITE_BASE_URL;
 
@@ -10,9 +11,10 @@ interface UserType {
   user_id?: string;
 }
 
-interface InitialStateType extends UserType {
+interface InitialStateType {
+  user: UserType;
   status: "loading" | "idle" | "failed";
-  error_message?: string;
+  message?: string;
 }
 
 interface UserState {
@@ -22,16 +24,18 @@ interface UserState {
 }
 
 const initialState: InitialStateType = {
-  email: "",
-  full_name: "",
-  role: "APPRAISER",
-  user_id: "",
+  user: {
+    email: "",
+    full_name: "",
+    role: "APPRAISER",
+    user_id: "",
+  },
   status: "idle",
-  error_message: "",
+  message: "",
 };
 
 const useUserStore = create<UserState>((set) => ({
-  initialState: initialState,
+  initialState,
 
   addUser: async (payload: UserType) => {
     set((state) => ({ ...state, status: "loading" }));
@@ -49,7 +53,7 @@ const useUserStore = create<UserState>((set) => ({
       set((state) => ({
         ...state,
         status: "loading",
-        error_message: error.message,
+        initialState: { ...initialState, message: error.response.data.message },
       }));
     }
   },
@@ -57,20 +61,29 @@ const useUserStore = create<UserState>((set) => ({
   loginUser: async (payload: { email: string; password: string }) => {
     console.log("payload:", payload);
 
-    set((state) => ({ ...state, status: "loading" }));
+    set((state) => ({
+      initialState: { ...state.initialState, status: "loading" },
+    }));
     try {
       const user = await Axios.post(`${URL}/user/login`, payload, {
         withCredentials: true,
       });
+
       set((state) => ({
-        initialState: (state.initialState = user.data),
-        status: "idle",
+        initialState: {
+          ...state.initialState,
+          user: user.data,
+          status: "idle",
+          message: "SUCCESSFULLY LOGGED IN!",
+        },
       }));
     } catch (error: any) {
       set((state) => ({
-        ...state,
-        status: "loading",
-        error_message: error,
+        initialState: {
+          ...state.initialState,
+          status: "failed",
+          message: error.response.data.message,
+        },
       }));
     }
   },

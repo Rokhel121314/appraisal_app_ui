@@ -1,17 +1,47 @@
-.mainContainer {
+.main_container {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 80px);
+  margin-top: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
-  color: black;
+  /* background-color: aquamarine; */
+  font-size: 12px;
+  color: #80000b;
 }
 
-.loginContainer {
-  width: 30%;
-  height: 50vh;
+.signin_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 80px;
+}
 
-  border-radius: 20px;
-  box-shadow: 5px 5px 10px #80000b60;
+.headertext_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.checkbox_container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.checkbox {
+  background-color: #fff;
+}
+
+.checkbox_text {
+  margin-left: 3px;
+}
+
+.notification_container {
+  height: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }

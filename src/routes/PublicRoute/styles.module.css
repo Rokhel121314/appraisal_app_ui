@@ -4,15 +4,51 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: green;
+  position: fixed;
+  /* background-color: green; */
 }
 
 .logo_container {
   width: auto;
   padding-left: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo_container:hover {
+  cursor: pointer;
 }
 
 .action_container {
   width: auto;
   padding-right: 30px;
+}
+
+.logo_image {
+  width: 40px;
+  margin-right: 20px;
+}
+
+.text_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.brand_text {
+  font-size: 24px;
+  font-weight: 500;
+  color: #711f1f;
+  line-height: 24px;
+}
+
+.qoute_text {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  color: #711f1f;
+  line-height: 14px;
+  margin-top: 3px;
 }
