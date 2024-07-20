@@ -17,7 +17,7 @@ export const userLogin = createAsyncThunk(
   async (payload: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const user = await Axios.post(`${URL}/user/login`, payload, {
-        withCredentials: true,
+        // withCredentials: true,
       });
       return user.data;
     } catch (error: any) {
@@ -33,7 +33,7 @@ export const userRegister = createAsyncThunk(
   async (payload: UserRegisterType, { rejectWithValue }) => {
     try {
       const user = await Axios.post(`${URL}/user`, payload, {
-        withCredentials: true,
+        // withCredentials: true,
       });
       return user.data;
     } catch (error: any) {
