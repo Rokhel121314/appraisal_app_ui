@@ -1,9 +1,9 @@
 import styles from "./style.module.css";
 import HeaderText from "../../components/HeaderText/HeaderText";
 import InputField from "../../components/InputField/InputField";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/extraReducers/userReducer";
@@ -36,7 +36,7 @@ const Login = () => {
     } else setShowPassword("password");
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // useEffect(() => {
   //   if (!user?.user.user_id) {
   //     return;
