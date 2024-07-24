@@ -30,9 +30,6 @@ const Register = () => {
   const user = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
 
-  console.log("user", user);
-
-  // console.log("registerDetail:", registerDetail);
   const handleRegister = async () => {
     try {
       const user = await dispatch(userRegister(registerDetail));
