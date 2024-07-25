@@ -41,3 +41,19 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
+
+// USER LOGOUT
+
+export const userLogout = createAsyncThunk(
+  "user/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const user = await Axios.post(`${URL}/user/logout`, _, {
+        withCredentials: true,
+      });
+      return user.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

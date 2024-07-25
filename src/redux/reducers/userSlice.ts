@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, userRegister } from "../extraReducers/userReducer";
+import {
+  userLogin,
+  userRegister,
+  userLogout,
+} from "../extraReducers/userReducer";
 
 //TYPES
 
@@ -13,6 +17,7 @@ export interface UserType {
 export interface InitialStateType {
   user: UserType;
   status: "idle" | "loading" | "failed";
+  logged_in: boolean;
   message?: any;
 }
 
@@ -25,6 +30,7 @@ const initialState: InitialStateType = {
   },
   status: "idle",
   message: "",
+  logged_in: false,
 };
 
 // USER LOGIN
@@ -50,6 +56,7 @@ export const userSlice = createSlice({
           ...state,
           ...{ user: action.payload },
           ...{ status: "idle" },
+          ...{ logged_in: true },
           ...{ message: "SUCCESSFULLY LOGGED IN!" },
         };
       })
@@ -65,15 +72,35 @@ export const userSlice = createSlice({
       .addCase(userRegister.pending, (state, _) => {
         return { ...state, ...{ status: "loading" } };
       })
-      .addCase(userRegister.fulfilled, (state, action) => {
+      .addCase(userRegister.fulfilled, (state, _) => {
         return {
           ...state,
-          ...{ user: action.payload },
+          ...{ user: initialState.user },
           ...{ status: "idle" },
+          ...{ logged_in: false },
           ...{ message: "USER REGISTERED SUCCESSFULLY!" },
         };
       })
       .addCase(userRegister.rejected, (state, action) => {
+        return {
+          ...state,
+          ...{ message: action.payload },
+          ...{ status: "failed" },
+        };
+      })
+      .addCase(userLogout.pending, (state, _) => {
+        return { ...state, ...{ status: "loading" } };
+      })
+      .addCase(userLogout.fulfilled, (state, _) => {
+        return {
+          ...state,
+          ...{ user: initialState.user },
+          ...{ status: "idle" },
+          ...{ logged_in: false },
+          ...{ message: "USER LOGGED OUT SUCCESSFULLY!" },
+        };
+      })
+      .addCase(userLogout.rejected, (state, action) => {
         return {
           ...state,
           ...{ message: action.payload },
