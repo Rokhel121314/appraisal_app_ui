@@ -9,6 +9,10 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
 import Error from "./pages/Error/Error.tsx";
+import PrivateRoutes from "./routes/PrivateRoutes/PrivateRoutes.tsx";
+import SPALLCHome from "./pages/SPALLCHome/SPALLCHome.tsx";
+import CMGProjectList from "./pages/CMGProject/CMGProjectList/CMGProjectList.tsx";
+import GallagherProjectList from "./pages/GallagherProject/GallagherProjectList/GallagherProjectList.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,12 +21,31 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: "/login",
         element: <Login />,
       },
       {
-        path: "signup",
+        path: "/register",
         element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "/spallc",
+    element: <PrivateRoutes />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/spallc",
+        element: <SPALLCHome />,
+      },
+      {
+        path: "/spallc/gallagher",
+        element: <GallagherProjectList />,
+      },
+      {
+        path: "/spallc/catholic-mutual",
+        element: <CMGProjectList />,
       },
     ],
   },
