@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import styles from "./styles.module.css";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-// import { resetUserState } from "../../redux/reducers/userSlice";
 import { useNavigate } from "react-router-dom";
 import { userLogout } from "../../redux/extraReducers/userReducer";
 
