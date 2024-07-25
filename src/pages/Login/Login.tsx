@@ -3,11 +3,9 @@ import HeaderText from "../../components/HeaderText/HeaderText";
 import InputField from "../../components/InputField/InputField";
 import { useEffect, useState } from "react";
 import Button from "../../components/Button/Button";
-// import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/extraReducers/userReducer";
-
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +19,7 @@ const Login = () => {
     password: "",
   });
 
-  console.log("signUp:", loginDetail);
+  const navigate = useNavigate();
 
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
@@ -37,12 +35,22 @@ const Login = () => {
     } else setShowPassword("password");
   };
 
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!user?.user.user_id) {
-      return;
-    } else {
+  const handleLogin = async () => {
+    const user = await dispatch(userLogin(loginDetail));
+    console.log("user", user);
+
+    if (user) {
       navigate("/spallc");
+    } else {
+      return;
+    }
+  };
+
+  useEffect(() => {
+    if (user.logged_in) {
+      navigate("/spallc");
+    } else {
+      navigate("/");
     }
   }, [user]);
 
@@ -89,7 +97,7 @@ const Login = () => {
             title="SIGN IN"
             tooltip=""
             onClick={() => {
-              dispatch(userLogin(loginDetail));
+              handleLogin();
             }}
             disabled={false}
           />
