@@ -17,12 +17,11 @@ const Button = ({
   title = "Button",
   height = "35px",
   width = "100%",
-  backgroundColor = "#80000b",
 }: PropTypes) => {
   return (
     <button
       className={styles.button}
-      style={{ height: height, width: width, backgroundColor: backgroundColor }}
+      style={{ height: height, width: width }}
       title={tooltip}
       disabled={disabled}
       onClick={() => onClick()}

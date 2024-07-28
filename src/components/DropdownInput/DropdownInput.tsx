@@ -10,6 +10,7 @@ type PropTypes = {
   initialValue?: string;
   onChangeText: (e: string) => void;
   disabled: boolean;
+  name: string;
 };
 const DropdownInput = ({
   placeholder = "Search here...",
@@ -20,6 +21,7 @@ const DropdownInput = ({
   onChangeText,
   list,
   label,
+  name = "",
 }: PropTypes) => {
   const selectRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState(initialValue);
@@ -28,7 +30,9 @@ const DropdownInput = ({
   };
   return (
     <div className={styles.container}>
-      <label className={styles.label}>{label}</label>
+      <label className={styles.label} htmlFor={name}>
+        {label}
+      </label>
       <div className={styles.select_container} onFocus={handleFocus}>
         <input
           className={styles.select_input}
@@ -38,6 +42,7 @@ const DropdownInput = ({
           lang="en"
           disabled={disabled}
           required={required}
+          id={name}
           value={value}
           onChange={(e) => {
             e.preventDefault();

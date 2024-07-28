@@ -10,6 +10,7 @@ import {
   viewAllGallagherEntity,
 } from "../../../redux/extraReducers/gallagherEntityReducer";
 import { resetGallagherEntityState } from "../../../redux/reducers/gallagherEntitySlice";
+import EntityTable from "../../../components/EntityTable/EntityTable";
 
 export interface EntityPayloadType {
   entity_name: string;
@@ -40,30 +41,27 @@ const GallagherProjectList = () => {
     appraiser: user.user.full_name,
   });
 
-  // console.log("entityPayload", entityPayload);
-  // console.log("gallagherEntity", gallagherEntity.entity);
-  // console.log("gallagherEntityList", gallagherEntity.entityList);
+  const buttonDisabled =
+    entityPayload.entity_name &&
+    entityPayload.entity_number &&
+    entityPayload.entity_address &&
+    entityPayload.city &&
+    entityPayload.state &&
+    entityPayload.zip &&
+    entityPayload.effective_date;
+  console.log("buttonDisabled", buttonDisabled);
 
   const handleSaveEntity = async () => {
     await dispatch(addGallagherEntity(entityPayload));
     setTimeout(() => {
       dispatch(resetGallagherEntityState());
-      setEntityPayload({
-        entity_name: "",
-        entity_number: "",
-        entity_address: "",
-        city: "",
-        state: "",
-        zip: "",
-        effective_date: "",
-        appraiser: "",
-      });
+      window.location.reload();
     }, 500);
   };
 
   useEffect(() => {
     dispatch(viewAllGallagherEntity());
-  }, [gallagherEntity.entity]);
+  }, []);
 
   return (
     <main className={styles.container}>
@@ -81,6 +79,7 @@ const GallagherProjectList = () => {
               required={true}
               disabled={false}
               initialValue={entityPayload.entity_name}
+              name={"entity_name"}
               checkSpell={true}
               onChangeText={(value) => {
                 setEntityPayload({ ...entityPayload, entity_name: value });
@@ -91,8 +90,9 @@ const GallagherProjectList = () => {
             <InputField
               height={"25px"}
               marginTop="0px"
-              label="Entity Number:"
+              label="Entity #:"
               placeholder="entity #..."
+              name={"entity_number"}
               type="text"
               required={true}
               disabled={false}
@@ -108,6 +108,7 @@ const GallagherProjectList = () => {
               marginTop="0px"
               label="Entity Address:"
               placeholder="address..."
+              name={"entity_address"}
               type="text"
               required={true}
               disabled={false}
@@ -125,6 +126,7 @@ const GallagherProjectList = () => {
               marginTop="0px"
               label="City:"
               placeholder="city..."
+              name={"city"}
               type="text"
               required={true}
               disabled={false}
@@ -141,6 +143,7 @@ const GallagherProjectList = () => {
               marginTop="0px"
               label="State:"
               placeholder="state..."
+              name={"state"}
               type="text"
               required={true}
               disabled={false}
@@ -157,6 +160,7 @@ const GallagherProjectList = () => {
               marginTop="0px"
               label="Zip:"
               placeholder="zip..."
+              name={"zip"}
               type="text"
               required={true}
               disabled={false}
@@ -173,6 +177,7 @@ const GallagherProjectList = () => {
               marginTop="0px"
               label="Effective Date:"
               placeholder="Type here..."
+              name={"effective_date"}
               type="date"
               required={true}
               disabled={false}
@@ -183,14 +188,14 @@ const GallagherProjectList = () => {
             />
           </div>
 
-          <div style={{ marginTop: "14px", width: "8%" }}>
+          <div style={{ marginTop: "20px", width: "8%" }}>
             <Button
               width="100%"
               height="35px"
               title={
                 gallagherEntity.status === "loading" ? "SAVING..." : "SAVE"
               }
-              disabled={false}
+              disabled={!buttonDisabled}
               onClick={() => {
                 handleSaveEntity();
               }}
@@ -202,9 +207,7 @@ const GallagherProjectList = () => {
 
       <div className={styles.search_container}>SEARCH BOX</div>
       <div className={styles.table_container}>
-        <div className={styles.table_header}>
-          <span></span>
-        </div>
+        <EntityTable entityArray={gallagherEntity.entityList} />
       </div>
     </main>
   );

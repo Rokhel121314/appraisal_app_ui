@@ -13,6 +13,7 @@ type PropTypes = {
   height?: string;
   marginTop?: string;
   checkSpell?: boolean;
+  name: string;
 };
 
 const InputField = ({
@@ -26,6 +27,7 @@ const InputField = ({
   height = "35px",
   marginTop = "12px",
   checkSpell = false,
+  name = "name",
 }: PropTypes) => {
   //
   const [value, setValue] = useState(initialValue);
@@ -59,11 +61,14 @@ const InputField = ({
       style={{ marginTop: marginTop }}
       onClick={handleFocus}
     >
-      <label className={styles.input_label}>{label}</label>
+      <label className={styles.input_label} htmlFor={name}>
+        {label}
+      </label>
       <input
         className={styles.input}
         style={{ height: height }}
         type={type}
+        id={name}
         placeholder={placeholder}
         required={required}
         disabled={disabled}

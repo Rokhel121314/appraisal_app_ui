@@ -7,8 +7,9 @@
 }
 
 .button:disabled {
-  color: gray;
-  cursor: default;
+  color: #ffffff90;
+  cursor: not-allowed;
+  background-color: #80000b90;
 }
 
 .button:hover:enabled {
@@ -17,8 +18,8 @@
   color: #fff;
 }
 
-.button:active:enabled {
+.button:enabled {
   cursor: default;
-  background-color: #fff;
-  color: #80000b;
+  background-color: #80000b;
+  color: #fff;
 }
