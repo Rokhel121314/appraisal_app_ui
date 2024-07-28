@@ -1,27 +1,22 @@
 .container {
-  width: auto;
+  width: 100%;
   height: auto;
-  min-width: 240px;
-  /* background-color: blue; */
   display: flex;
   flex-direction: column;
-  margin-top: 12px;
 }
 
 .input_label {
-  font-size: 12px;
+  font-size: 14px;
   color: #80000b;
 }
 
 .input {
   background-color: #fff;
-  min-width: 240px;
-  height: 35px;
   border-radius: 8px;
   color: #80000b;
-  padding: 0px 12px;
+  padding: 3px 12px;
   border: 1px solid #80000b;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 input:focus {

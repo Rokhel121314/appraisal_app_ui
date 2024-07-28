@@ -14,7 +14,7 @@ export interface UserType {
   user_id?: string;
 }
 
-export interface InitialStateType {
+interface InitialStateType {
   user: UserType;
   status: "idle" | "loading" | "failed";
   logged_in: boolean;
@@ -32,8 +32,6 @@ const initialState: InitialStateType = {
   message: "",
   logged_in: false,
 };
-
-// USER LOGIN
 
 export const userSlice = createSlice({
   name: "user",

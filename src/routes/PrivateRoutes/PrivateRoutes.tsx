@@ -1,12 +1,25 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import ProtectedRoutes from "../ProtectedRoutes";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import SmallButton from "../../components/SmallButton/SmallButton";
+import { userLogout } from "../../redux/extraReducers/userReducer";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const PrivateRoutes = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const user = useSelector((state: RootState) => state.user);
+
+  const handleLogout = async () => {
+    await dispatch(userLogout());
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
+
   return (
     <>
       <nav className={styles.container}>
@@ -21,7 +34,19 @@ const PrivateRoutes = () => {
             </span>
           </div>
         </div>
-        <div className={styles.action_container}></div>
+        <div className={styles.action_container}>
+          <div className={styles.user_text}>
+            {user.user.full_name.toUpperCase()}
+          </div>
+          <div className={styles.role_text}>{user.user.role}</div>
+          <div className={styles.button_container}>
+            <SmallButton
+              title={"LOGOUT"}
+              onClick={() => handleLogout()}
+              icon="/logo/logout.png"
+            />
+          </div>
+        </div>
       </nav>
       <div id="detail">
         <ProtectedRoutes logged_in={user.logged_in}>

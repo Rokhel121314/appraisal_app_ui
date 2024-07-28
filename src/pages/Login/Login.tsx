@@ -94,7 +94,7 @@ const Login = () => {
           </div>
           <div className={styles.notification_container}>{user?.message}</div>
           <Button
-            title="SIGN IN"
+            title={user.status === "loading" ? "LOGGING IN..." : "LOG IN"}
             tooltip=""
             onClick={() => {
               handleLogin();

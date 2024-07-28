@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
+
   /* background-color: green; */
 }
 
@@ -23,6 +24,10 @@
 .action_container {
   width: auto;
   padding-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .logo_image {
@@ -51,4 +56,22 @@
   color: #711f1f;
   line-height: 14px;
   margin-top: 3px;
+}
+
+.user_text {
+  color: #80000b;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 15px;
+}
+
+.role_text {
+  color: #80000b;
+  font-size: 12px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.button_container {
+  margin-top: 5px;
 }

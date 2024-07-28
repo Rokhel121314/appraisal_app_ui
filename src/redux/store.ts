@@ -12,17 +12,17 @@ import {
 
 import storage from "redux-persist/lib/storage";
 import userSlice from "./reducers/userSlice";
-// import thunk from "redux-thunk";
-// import logger from "redux-logger";
+import gallagherEntitySlice from "./reducers/gallagherEntitySlice";
 
 const rootReducer = combineReducers({
   user: userSlice,
+  gallagherEntity: gallagherEntitySlice,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: [],
+  blacklist: ["gallagherEntity"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
