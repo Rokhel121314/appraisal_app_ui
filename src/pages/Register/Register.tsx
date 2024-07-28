@@ -54,6 +54,7 @@ const Register = () => {
           label="Email"
           placeholder="@gmail.com"
           type="email"
+          name={"email"}
           required={true}
           disabled={false}
           initialValue={registerDetail.email}
@@ -65,6 +66,7 @@ const Register = () => {
           label="Password"
           placeholder="*******"
           type={showPassword}
+          name={"password"}
           required={true}
           disabled={false}
           initialValue={registerDetail.password}
@@ -75,6 +77,7 @@ const Register = () => {
         <div className={styles.checkbox_container}>
           <input
             className={styles.checkbox}
+            id="register_checkbox"
             type="checkbox"
             onClick={() => checkbox()}
           />
@@ -83,6 +86,7 @@ const Register = () => {
         <InputField
           label="Full Name"
           placeholder="Jackson Stahl"
+          name={"full_name"}
           type={"text"}
           required={true}
           disabled={false}
@@ -97,6 +101,7 @@ const Register = () => {
           select_options={["APPRAISER", "PROCESSOR"]}
           list={"role"}
           placeholder="Select Role"
+          name={"roles"}
           required={true}
           disabled={false}
           onChangeText={(value) => {

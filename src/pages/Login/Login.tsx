@@ -66,6 +66,7 @@ const Login = () => {
             label="Email"
             type="email"
             placeholder="spa@spaappraisal.com"
+            name={"email"}
             initialValue={loginDetail.email}
             required={true}
             disabled={false}
@@ -77,6 +78,7 @@ const Login = () => {
             label="Password"
             type={showPassword}
             placeholder="**********"
+            name={"password"}
             initialValue={loginDetail?.password}
             required={true}
             disabled={false}
@@ -87,6 +89,7 @@ const Login = () => {
           <div className={styles.checkbox_container}>
             <input
               className={styles.checkbox}
+              id="login_checkbox"
               type="checkbox"
               onClick={() => checkbox()}
             />

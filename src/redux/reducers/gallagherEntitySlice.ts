@@ -16,9 +16,9 @@ export interface GallagherEntityType {
   effective_date: string;
   appraiser: string;
   client: string;
-  entity_id?: string;
-  date_created?: string;
-  date_updated?: string;
+  entity_id: string;
+  date_created: string;
+  date_updated: string;
 }
 
 interface InitialStateType {
