@@ -1,5 +1,10 @@
 import styles from "./styles.module.css";
 import { dateFormater } from "../../hooks/dateformater";
+import SmallButton from "../SmallButton/SmallButton";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { selectEntity } from "../../redux/reducers/gallagherEntitySlice";
 
 type EntityType = {
   entity_name: string;
@@ -20,6 +25,17 @@ type PropTypes = {
 };
 
 const EntityTable = (props: PropTypes) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  const handleNavigateProjectPage = async (
+    entity_id: string,
+    entity: EntityType
+  ) => {
+    await dispatch(selectEntity(entity));
+    navigate(`/spallc/gallagher/${entity_id}`);
+  };
+
   return (
     <>
       <div className={styles.table_header}>
@@ -50,10 +66,13 @@ const EntityTable = (props: PropTypes) => {
                 {dateFormater(item.date_updated)}
               </span>
               <div className={`${styles.col_1} ${styles.action_container}`}>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
-                <div>1</div>
+                <SmallButton
+                  title="OPEN"
+                  onClick={() => {
+                    handleNavigateProjectPage(item.entity_id, item);
+                  }}
+                  icon="/logo/view-2.png"
+                />
               </div>
             </div>
           );

@@ -28,7 +28,8 @@
     "react-router-dom": "^6.24.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "typo-js": "^1.2.4"
+    "typo-js": "^1.2.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

@@ -27,4 +27,5 @@ input:focus {
 
 .input:disabled {
   cursor: not-allowed;
+  border: none;
 }

@@ -1,0 +1,57 @@
+import { excelDateFormatter } from "./excelDateFormat";
+import { SheetData } from "./useUploadExcelFile";
+
+export const handleExcelData = (data: SheetData | null, entity_id: string) => {
+  const excel_data = data?.map((item: any) => {
+    return {
+      site_number: item["SITE NUMBER"],
+      site_name: item["SITE NAME"],
+      site_address: item["SITE ADDRESS"],
+      city: item["CITY"],
+      state: item["STATE"],
+      zip: item["ZIP"],
+      building_number: item["BUILDING NUMBER"],
+      building_name: item["BUILDING NAME"],
+      building_address: item["BUILDING ADDRESS"],
+      latitude: item["LATITUDE"],
+      longitude: item["LONGITUDE"],
+      sov_rcn: item["SOV RCN"],
+      sov_construction_class: item["SOV CONSTRUCTION CLASS"],
+      sov_area: item["SOV AREA"],
+      inspection_date: excelDateFormatter(item["DATE OF INSPECTION"]),
+      year_built: item["YEAR BUILT"],
+      building_use: item["BUILDING USE"],
+      stories: item["STORIES"],
+      average_height: item["AVERAGE STORY HEIGHT"],
+      area_main: item["SQUARE FOOTAGE (MAIN STRUCTURE)"],
+      area_basement: item["SQUARE FOOTAGE (BASEMENT)"],
+      area_total: item["SQUARE FOOTAGE (TOTAL)"],
+      frame_type: item["FRAME TYPE (M&S)"],
+      iso_class: item["ISO CONSTRUCTION CLASS"],
+      structural_floor_frame: item["STRUCTURAL FLOOR FRAME"],
+      foundation_type: item["FOUNDATION TYPE"],
+      building_service_system: item["BUILDING SERVICE SYSTEMS"],
+      roof_cover_material: item["ROOF COVER MATERIAL"],
+      roof_frame: item["ROOF FRAME"],
+      roof_age: item["ROOF AGE"],
+      roof_geometry: item["ROOF GEOMETRY"],
+      exterior_walltype_1: item["EXTERIOR WALL TYPE 1"],
+      exterior_walltype_2: item["EXTERIOR WALL TYPE 2"],
+      exterior_walltype_3: item["EXTERIOR WALL TYPE 3"],
+      fire_sprinklers: item["FIRE SPRINKLERS"],
+      firealarms_manual: item["FIRE ALARMS (MANUAL)"],
+      firealarms_automatic: item["FIRE ALARMS (AUTOMATIC)"],
+      smoke_detector: item["SMOKE DETECTORS"],
+      fire_extinguishers: item["FIRE EXTINGUISHERS"],
+      emergency_exit_lights: item["EMERGENCY EXIT LIGHTS"],
+      additional_features: item["ADDITIONAL FEATURES"],
+      cost_new: item["COST NEW"],
+      cost_new_less_exclusions: item["COST NEW LESS EXCLUSIONS"],
+      exclusions: item["EXCLUSIONS"],
+      rcn_per_area: item["RCN PER SQ.FT"],
+      bvs_type: "Reconstruction",
+      entity_id: entity_id,
+    };
+  });
+  return excel_data;
+};
