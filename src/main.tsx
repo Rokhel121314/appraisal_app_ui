@@ -13,6 +13,7 @@ import PrivateRoutes from "./routes/PrivateRoutes/PrivateRoutes.tsx";
 import SPALLCHome from "./pages/SPALLCHome/SPALLCHome.tsx";
 import CMGProjectList from "./pages/CMGProject/CMGProjectList/CMGProjectList.tsx";
 import GallagherProjectList from "./pages/GallagherProject/GallagherProjectList/GallagherProjectList.tsx";
+import GallagherSite from "./pages/GallagherProject/GallagherSite/GallagherSite.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
         path: "/spallc/gallagher",
         element: <GallagherProjectList />,
       },
+      {
+        path: "/spallc/gallagher/:entity_id",
+        element: <GallagherSite />,
+      },
+
       {
         path: "/spallc/catholic-mutual",
         element: <CMGProjectList />,

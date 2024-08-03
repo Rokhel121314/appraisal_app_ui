@@ -49,7 +49,6 @@ const GallagherProjectList = () => {
     entityPayload.state &&
     entityPayload.zip &&
     entityPayload.effective_date;
-  console.log("buttonDisabled", buttonDisabled);
 
   const handleSaveEntity = async () => {
     await dispatch(addGallagherEntity(entityPayload));

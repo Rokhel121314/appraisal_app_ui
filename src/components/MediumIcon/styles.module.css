@@ -1,0 +1,28 @@
+.button {
+  border: none;
+  border: 2px solid #80000b;
+  border-radius: 4px;
+  margin: 0;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #80000b;
+}
+
+.icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 3px;
+}
+
+.title {
+  font-size: 12px;
+
+  padding-top: 1px;
+}
+
+.button:hover {
+  cursor: pointer;
+  box-shadow: 2px 5px 5px #80000b50;
+}

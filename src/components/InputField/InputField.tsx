@@ -8,7 +8,7 @@ type PropTypes = {
   type: "number" | "text" | "email" | "date" | "password" | "image";
   required: boolean;
   disabled: boolean;
-  initialValue?: string | number;
+  initialValue?: string | number | undefined;
   onChangeText: (e: any) => void;
   height?: string;
   marginTop?: string;

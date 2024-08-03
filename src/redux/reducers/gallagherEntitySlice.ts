@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addGallagherEntity,
+  deleteGallagherEntity,
   viewAllGallagherEntity,
 } from "../extraReducers/gallagherEntityReducer";
 
@@ -55,6 +56,10 @@ export const gallagherEntitySlice = createSlice({
     resetGallagherEntityState: () => {
       return initialState;
     },
+
+    selectEntity: (state, action) => {
+      return { ...state, ...{ entity: action.payload } };
+    },
   },
   extraReducers: (build) => {
     build
@@ -98,10 +103,30 @@ export const gallagherEntitySlice = createSlice({
           ...{ message: action.payload },
           ...{ status: "failed" },
         };
+      })
+
+      // DELETE ENTITY
+      .addCase(deleteGallagherEntity.pending, (state, _) => {
+        return { ...state, ...{ status: "loading" } };
+      })
+      .addCase(deleteGallagherEntity.fulfilled, (state, action) => {
+        return {
+          ...state,
+          ...{ message: action.payload },
+          ...{ status: "idle" },
+        };
+      })
+      .addCase(deleteGallagherEntity.rejected, (state, action) => {
+        return {
+          ...state,
+          ...{ message: action.payload },
+          ...{ status: "failed" },
+        };
       });
   },
 });
 
-export const { resetGallagherEntityState } = gallagherEntitySlice.actions;
+export const { resetGallagherEntityState, selectEntity } =
+  gallagherEntitySlice.actions;
 
 export default gallagherEntitySlice.reducer;

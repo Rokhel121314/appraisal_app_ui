@@ -6,6 +6,8 @@ import { RootState } from "../../redux/store";
 import SmallButton from "../../components/SmallButton/SmallButton";
 import { userLogout } from "../../redux/extraReducers/userReducer";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import { resetGallagherEntityState } from "../../redux/reducers/gallagherEntitySlice";
+import { resetGallagherSite } from "../../redux/reducers/gallagherSiteSlice";
 
 const PrivateRoutes = () => {
   const navigate = useNavigate();
@@ -14,6 +16,8 @@ const PrivateRoutes = () => {
 
   const handleLogout = async () => {
     await dispatch(userLogout());
+    dispatch(resetGallagherEntityState());
+    dispatch(resetGallagherSite());
 
     setTimeout(() => {
       navigate("/");
