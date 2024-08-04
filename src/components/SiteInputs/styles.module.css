@@ -1,0 +1,31 @@
+.input_wrapper {
+  /* background-color: rgb(85, 122, 208); */
+  height: 70px;
+  width: calc(100vw - 60px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  column-gap: 5px;
+  overflow-x: scroll;
+  padding: 5px 0px;
+  flex-shrink: 0;
+}
+
+.col_1 {
+  min-width: 150px;
+  flex-basis: 150px;
+
+  /* background-color: red; */
+}
+
+.col_2 {
+  min-width: 200px;
+  flex-basis: 200px;
+  /* background-color: red; */
+}
+.col_3 {
+  min-width: 300px;
+  flex-basis: 300px;
+
+  /* background-color: #6fa9df; */
+}

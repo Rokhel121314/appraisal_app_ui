@@ -1,0 +1,47 @@
+.input_wrapper {
+  border: none;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-end;
+  min-height: 30px;
+  border-bottom: 0.5px solid #80000b30;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.col_1 {
+  min-width: 150px;
+  flex-basis: 150px;
+  text-align: left;
+}
+
+.col_2 {
+  min-width: 200px;
+  flex-basis: 200px;
+  text-align: left;
+}
+.col_3 {
+  min-width: 300px;
+  flex-basis: 300px;
+  text-align: left;
+}
+
+.empty_1 {
+  min-width: 150px;
+  flex-basis: 150px;
+  background-color: #80000b20;
+  border-radius: 4px;
+}
+
+.empty_2 {
+  min-width: 200px;
+  flex-basis: 200px;
+  background-color: #80000b20;
+}
+
+.empty_3 {
+  min-width: 300px;
+  flex-basis: 300px;
+  background-color: #80000b20;
+}

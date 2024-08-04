@@ -52,3 +52,41 @@ export const viewGallagherSitesPerEntity = createAsyncThunk(
     }
   }
 );
+
+// UPDATE SITE OF ENTITY
+
+export const updateGallagherSite = createAsyncThunk(
+  "gallagherSite/update",
+  async (
+    payload: { site_id: string; site: GallagherSiteType },
+    { rejectWithValue }
+  ) => {
+    try {
+      const site = await axiosInstance.put(
+        `/gallagher_site/update/${payload.site_id}`,
+        payload.site,
+        { withCredentials: true }
+      );
+      return site.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+// DELETE SITE OF ENTITY
+
+export const deleteGallagherSite = createAsyncThunk(
+  "gallagherSite/delete",
+  async (payload: string, { rejectWithValue }) => {
+    try {
+      const site = await axiosInstance.delete(
+        `gallagher_site/delete/${payload}`,
+        { withCredentials: true }
+      );
+      return site.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);

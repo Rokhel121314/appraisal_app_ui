@@ -46,7 +46,9 @@ const useUploadExcelFile = (entity_id: string) => {
           sov_rcn: item["SOV RCN"],
           sov_construction_class: item["SOV CONSTRUCTION CLASS"],
           sov_area: item["SOV AREA"],
-          inspection_date: excelDateFormatter(item["DATE OF INSPECTION"]),
+          inspection_date: !item["DATE OF INSPECTION"]
+            ? ""
+            : excelDateFormatter(item["DATE OF INSPECTION"]),
           year_built: item["YEAR BUILT"],
           building_use: item["BUILDING USE"],
           stories: item["STORIES"],
