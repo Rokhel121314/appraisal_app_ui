@@ -50,8 +50,8 @@ const useUploadExcelFile = (entity_id: string) => {
             ? ""
             : excelDateFormatter(item["DATE OF INSPECTION"]),
           year_built: item["YEAR BUILT"],
-          building_use: item["BUILDING USE"],
-          stories: item["STORIES"],
+          building_use: item["BUILDING USE/OCCUPANCY"],
+          stories: item["NUMBER OF STORIES"],
           average_height: item["AVERAGE STORY HEIGHT"],
           area_main: item["SQUARE FOOTAGE (MAIN STRUCTURE)"],
           area_basement: item["SQUARE FOOTAGE (BASEMENT)"],

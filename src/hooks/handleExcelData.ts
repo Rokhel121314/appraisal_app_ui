@@ -20,7 +20,7 @@ export const handleExcelData = (data: SheetData | null, entity_id: string) => {
       sov_area: item["SOV AREA"],
       inspection_date: excelDateFormatter(item["DATE OF INSPECTION"]),
       year_built: item["YEAR BUILT"],
-      building_use: item["BUILDING USE"],
+      building_use: item["BUILDING USE/OCCUPANCY"],
       stories: item["STORIES"],
       average_height: item["AVERAGE STORY HEIGHT"],
       area_main: item["SQUARE FOOTAGE (MAIN STRUCTURE)"],

@@ -32,6 +32,8 @@ const GallagherSite = () => {
     entity.entity.entity_id
   );
 
+  console.log("excel_data:", data);
+
   const [sitePayload, setSitePayload] = useState<GallagherSiteType>({
     entity_site_building_number: gallagherSite.entity_site_building_number,
     site_number: gallagherSite.site_number,
