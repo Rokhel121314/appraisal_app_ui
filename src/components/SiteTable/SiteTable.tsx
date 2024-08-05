@@ -502,10 +502,10 @@ const SiteTable = ({
                   <div className={styles.col_1}>
                     {typeof item.sov_rcn === "number"
                       ? typeof item.cost_new === "number"
-                        ? `${((1 - item.cost_new / item.sov_rcn) * 100).toFixed(
+                        ? `${((item.cost_new / item.sov_rcn - 1) * 100).toFixed(
                             2
                           )}% ${
-                            1 - item.cost_new / item.sov_rcn > 0
+                            item.cost_new / item.sov_rcn - 1 > 0
                               ? "INC."
                               : "DEC."
                           }`
