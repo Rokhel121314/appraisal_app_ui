@@ -1,9 +1,9 @@
 .container {
-  background-color: aqua;
   height: calc(100vh - 80px);
   width: 100vw;
   margin-top: 80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  color: black;
 }
