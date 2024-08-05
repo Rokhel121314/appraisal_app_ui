@@ -76,6 +76,7 @@ const SiteTable = ({
           <div className={styles.col_2}>R Cost New Less Exclusions</div>
           <div className={styles.col_1}>{`Cost per SQ.FT.`}</div>
           <div className={styles.col_1}>BVS Type</div>
+          <div className={styles.col_1}>{`RCN/SOV.`}</div>
         </button>
       </div>
       <div className={styles.table_content_container}>
@@ -496,6 +497,21 @@ const SiteTable = ({
 
                   {/* BVS TYPE */}
                   <div className={styles.col_1}>{item.bvs_type}</div>
+
+                  {/* COST PER SQ.FT */}
+                  <div className={styles.col_1}>
+                    {typeof item.sov_rcn === "number"
+                      ? typeof item.cost_new === "number"
+                        ? `${((1 - item.cost_new / item.sov_rcn) * 100).toFixed(
+                            2
+                          )}% ${
+                            1 - item.cost_new / item.sov_rcn > 0
+                              ? "INC."
+                              : "DEC."
+                          }`
+                        : "N/A"
+                      : "NA"}
+                  </div>
                 </button>
               );
             }

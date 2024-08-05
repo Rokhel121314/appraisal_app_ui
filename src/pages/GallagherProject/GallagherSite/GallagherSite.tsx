@@ -85,7 +85,15 @@ const GallagherSite = () => {
     entity_id: entity.entity.entity_id,
   });
 
-  console.log("SITEPAYLOAD:", sitePayload);
+  // console.log("SITEPAYLOAD:", sitePayload);
+
+  const diff =
+    typeof site.site.sov_rcn === "number"
+      ? typeof site.site.cost_new === "number"
+        ? (1 - site.site.sov_rcn / site.site.cost_new) * 100
+        : "N/A"
+      : "NA";
+  console.log("DIFF:", `${diff.toLocaleString()} %`);
 
   useEffect(() => {
     dispatch(viewGallagherSitesPerEntity(entity.entity.entity_id));
