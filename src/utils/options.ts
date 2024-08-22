@@ -198,7 +198,7 @@ export const ceilingFinishes: string[] = [
   "None",
 ];
 
-export const wallFinishes: string[] = [
+export const wallStructure: string[] = [
   "Brick, Solid",
   "Concrete Block",
   "Concrete, Poured in Place",
@@ -209,6 +209,24 @@ export const wallFinishes: string[] = [
   "Studs/Girts",
   "Tile, Clay",
   "Wooven Wire",
+  "None",
+];
+
+export const wallFinish: string[] = [
+  "Cold Storage Insulation",
+  "Drywall",
+  "Epoxy",
+  "Paint",
+  "Paneling, Solid Wood",
+  "Plaster on Lath",
+  "Plaster, Sprayed",
+  "Plywood/Hardboard/Fiberboard",
+  "Sheetmetal",
+  "Textured Finish",
+  "Tile, Acoustical",
+  "Tile, Ceramic",
+  "Tile Quarry",
+  "Wallpaper, Vinyl",
   "None",
 ];
 

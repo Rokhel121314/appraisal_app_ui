@@ -31,6 +31,7 @@ axiosInstance.interceptors.response.use(
       }
     }
     console.log("TOKEN ERROR");
+    console.log(Promise.reject(error));
     return Promise.reject(error);
   }
 );
