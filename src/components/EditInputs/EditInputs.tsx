@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { GallagherSiteType } from "../../types";
 import {
   buildingUseList,
+  ceilingFinishes,
   exteriorWallsList,
+  floorFinishes,
   foundation,
   frameType,
   ISOConstructionClass,
@@ -11,6 +13,8 @@ import {
   roofGeometry,
   serviceSystemsList,
   structuralFloorFrame,
+  wallFinish,
+  wallStructure,
 } from "../../utils/options";
 import EditDropdownInput from "../EditDropdownInput/EditDropdownInput";
 import EditInputField from "../EditInputField/EditInputField";
@@ -775,6 +779,82 @@ const EditInputs = ({
             setSitePayload({
               ...sitePayload,
               exterior_walltype_3: value,
+            });
+          }}
+        />
+      </div>
+
+      <div className={styles.col_1}>
+        <EditDropdownInput
+          label="Partition Wall Structure:"
+          select_options={wallStructure}
+          list={"partition_wall_structures"}
+          placeholder="Select..."
+          name={"partition_wall_structure"}
+          required={false}
+          disabled={false}
+          initialValue={site.site.partition_wall_structure}
+          onChangeText={(value) => {
+            setSitePayload({
+              ...sitePayload,
+              partition_wall_structure: value,
+            });
+          }}
+        />
+      </div>
+
+      <div className={styles.col_1}>
+        <EditDropdownInput
+          label="Partition Wall Finish:"
+          select_options={wallFinish}
+          list={"partition_wall_finishes"}
+          placeholder="Select..."
+          name={"partition_wall_finish"}
+          required={false}
+          disabled={false}
+          initialValue={site.site.partition_wall_finish}
+          onChangeText={(value) => {
+            setSitePayload({
+              ...sitePayload,
+              partition_wall_finish: value,
+            });
+          }}
+        />
+      </div>
+
+      <div className={styles.col_1}>
+        <EditDropdownInput
+          label="Floor Finish:"
+          select_options={floorFinishes}
+          list={"floor_finishes"}
+          placeholder="Select..."
+          name={"floor_finish"}
+          required={false}
+          disabled={false}
+          initialValue={site.site.floor_finish}
+          onChangeText={(value) => {
+            setSitePayload({
+              ...sitePayload,
+              floor_finish: value,
+            });
+          }}
+        />
+      </div>
+
+      <div className={styles.col_1}>
+        <EditDropdownInput
+          label="Ceiling Finish:"
+          select_options={ceilingFinishes}
+          list={"ceiling_finishes"}
+          placeholder="Select..."
+          name={"ceiling_finish"}
+          required={false}
+          disabled={false}
+          initialValue={site.site.ceiling_finish}
+          onChangeText={(value) => {
+            setSitePayload({
+              ...sitePayload,
+              ceiling_finish: value,
             });
           }}
         />

@@ -64,6 +64,10 @@ const SiteTable = ({
           <div className={styles.col_1}>Exterior Wall Type 1</div>
           <div className={styles.col_1}>Exterior Wall Type 2</div>
           <div className={styles.col_1}>Exterior Wall Type 3</div>
+          <div className={styles.col_1}>Partition Wall Structure</div>
+          <div className={styles.col_1}>Partition Wall Finish</div>
+          <div className={styles.col_1}>Floor Finish</div>
+          <div className={styles.col_1}>Ceiling Finish</div>
           <div className={styles.col_1}>Fire Sprinklers</div>
           <div className={styles.col_1}>{`Fire Alarms ( Manual )`}</div>
           <div className={styles.col_1}>{`Fire Alarms ( Automatic )`}</div>
@@ -293,7 +297,7 @@ const SiteTable = ({
                   <div
                     className={item.iso_class ? styles.col_1 : styles.empty_1}
                   >
-                    {!item.area_main ? "-" : item.area_main}
+                    {!item.iso_class ? "-" : item.iso_class}
                   </div>
 
                   {/* STRUCTURAL FLOOR FRAME */}
@@ -388,6 +392,48 @@ const SiteTable = ({
                     }
                   >
                     {!item.exterior_walltype_3 ? "-" : item.exterior_walltype_3}
+                  </div>
+
+                  {/* PARTITION WALL STRUCTURE */}
+                  <div
+                    className={
+                      item.partition_wall_structure
+                        ? styles.col_1
+                        : styles.empty_1
+                    }
+                  >
+                    {!item.partition_wall_structure
+                      ? "-"
+                      : item.partition_wall_structure}
+                  </div>
+
+                  {/* PARTITION WALL FINISH */}
+                  <div
+                    className={
+                      item.partition_wall_finish ? styles.col_1 : styles.empty_1
+                    }
+                  >
+                    {!item.partition_wall_finish
+                      ? "-"
+                      : item.partition_wall_finish}
+                  </div>
+
+                  {/* FLOOR FINISH */}
+                  <div
+                    className={
+                      item.floor_finish ? styles.col_1 : styles.empty_1
+                    }
+                  >
+                    {!item.floor_finish ? "-" : item.floor_finish}
+                  </div>
+
+                  {/* CEILING FINISH */}
+                  <div
+                    className={
+                      item.ceiling_finish ? styles.col_1 : styles.empty_1
+                    }
+                  >
+                    {!item.ceiling_finish ? "-" : item.ceiling_finish}
                   </div>
 
                   {/* FIRE SPRINKLERS */}
