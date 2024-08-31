@@ -17,9 +17,12 @@ import SiteTable from "../../../components/SiteTable/SiteTable";
 import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
 import {
   resetSite,
+  searchFilter,
   uploadSiteList,
 } from "../../../redux/reducers/gallagherSiteSlice";
 import LoadingModal from "../../../components/LoadingModal/LoadingModal";
+import EditDropdownInput from "../../../components/EditDropdownInput/EditDropdownInput";
+import { useNavigate } from "react-router-dom";
 
 const GallagherSite = () => {
   const entity = useSelector((state: RootState) => state.gallagherEntity);
@@ -31,8 +34,6 @@ const GallagherSite = () => {
   const { data, handleFileUpload, resetData } = useUploadExcelFile(
     entity.entity.entity_id
   );
-
-  console.log("excel_data:", data);
 
   const [sitePayload, setSitePayload] = useState<GallagherSiteType>({
     entity_site_building_number: gallagherSite.entity_site_building_number,
@@ -89,15 +90,12 @@ const GallagherSite = () => {
     entity_id: entity.entity.entity_id,
   });
 
-  // console.log("SITEPAYLOAD:", sitePayload);
-
-  const diff =
-    typeof site.site.sov_rcn === "number"
-      ? typeof site.site.cost_new === "number"
-        ? (1 - site.site.sov_rcn / site.site.cost_new) * 100
-        : "N/A"
-      : "NA";
-  console.log("DIFF:", `${diff.toLocaleString()} %`);
+  // const diff =
+  //   typeof site.site.sov_rcn === "number"
+  //     ? typeof site.site.cost_new === "number"
+  //       ? (1 - site.site.sov_rcn / site.site.cost_new) * 100
+  //       : "N/A"
+  //     : "NA";
 
   useEffect(() => {
     dispatch(viewGallagherSitesPerEntity(entity.entity.entity_id));
@@ -111,7 +109,9 @@ const GallagherSite = () => {
   const [toggleDeleteModal, setToggleDeleteModal] = useState(false);
   const [toggleUpdateModal, setToggleUpdateModal] = useState(false);
   const [toggleSaveModal, setToggleSaveModal] = useState(false);
+  // const [search, setSearch] = useState("");
 
+  // handleSearchFilter("ALL");
   const handleToggleUpdate = () => {
     setToggleUpdate((prev) => !prev);
   };
@@ -194,6 +194,14 @@ const GallagherSite = () => {
     dispatch(resetSite());
   };
 
+  // SEARCH FILTER
+
+  const site_number_list = [
+    ...new Set(site.site_list.flatMap((item) => item.site_number)),
+  ];
+
+  const navigate = useNavigate();
+
   return (
     <main className={styles.main_container}>
       {/* ENTITY DETAIL HEADER */}
@@ -214,6 +222,16 @@ const GallagherSite = () => {
         </div>
       </div>
 
+      {/* REPORT RELATED BUTTONS */}
+
+      <div className={styles.report_actions_container}>
+        <MediumIcon
+          title="BVS FIELD FORM"
+          onClick={() => navigate("/spallc/gallagher/bvs-field-form")}
+          icon={"/logo/file.png"}
+        />
+      </div>
+
       {/* INPUT CONTAINER */}
       <div className={styles.input_actions_container}>
         <div className={styles.actions_wrapper}>
@@ -232,6 +250,22 @@ const GallagherSite = () => {
               icon="/logo/file.png"
             />
             <input type="file" onChange={handleFileUpload} />
+          </div>
+
+          <div className={styles.filterContainer}>
+            <EditDropdownInput
+              placeholder="filter by site number..."
+              select_options={site_number_list}
+              label="Filter by Site Number"
+              list={"site_number"}
+              name={"site_numbers"}
+              required={false}
+              disabled={false}
+              initialValue=""
+              onChangeText={(value) => {
+                dispatch(searchFilter(value));
+              }}
+            />
           </div>
 
           {/* FILE FUNCTIONS */}

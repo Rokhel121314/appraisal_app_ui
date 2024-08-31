@@ -1,0 +1,13 @@
+.main_container {
+  height: calc(100vh - 80px);
+  width: 100vw;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: #80000b;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: aqua;
+}

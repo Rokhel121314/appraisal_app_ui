@@ -20,6 +20,7 @@ interface InitialStateType {
   empty_site: GallagherSiteSliceType;
   site_list: GallagherSiteSliceType[];
   uploaded_site_list: GallagherSiteSliceType[];
+  filtered_site_list: GallagherSiteSliceType[];
   status: "idle" | "loading" | "failed";
   message?: any;
 }
@@ -140,6 +141,7 @@ const initialState: InitialStateType = {
     data_updated: "",
   },
   site_list: [],
+  filtered_site_list: [],
   uploaded_site_list: [],
   status: "idle",
   message: "",
@@ -162,6 +164,13 @@ export const gallagherSiteSlice = createSlice({
     },
     uploadSiteList: (state, action) => {
       return { ...state, ...{ uploaded_site_list: action.payload } };
+    },
+    searchFilter: (state, action) => {
+      state.filtered_site_list = state.site_list.filter((item) => {
+        return item.entity_site_building_number
+          .toLowerCase()
+          .includes(action.payload.toLowerCase());
+      });
     },
   },
   extraReducers: (build) => {
@@ -215,6 +224,7 @@ export const gallagherSiteSlice = createSlice({
         return {
           ...state,
           ...{ site_list: action.payload },
+          ...{ filtered_site_list: action.payload },
           ...{ status: "idle" },
           ...{ message: "SITES ADDED SUCCESSFULLY!" },
         };
@@ -269,7 +279,12 @@ export const gallagherSiteSlice = createSlice({
   },
 });
 
-export const { resetGallagherSite, selectSite, uploadSiteList, resetSite } =
-  gallagherSiteSlice.actions;
+export const {
+  resetGallagherSite,
+  selectSite,
+  uploadSiteList,
+  resetSite,
+  searchFilter,
+} = gallagherSiteSlice.actions;
 
 export default gallagherSiteSlice.reducer;
