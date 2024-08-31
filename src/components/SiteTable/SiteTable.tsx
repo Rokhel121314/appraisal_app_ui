@@ -90,10 +90,10 @@ const SiteTable = ({
             setSitePayload={setSitePayload}
           />
         )}
-        {!site.site_list ? (
+        {!site.filtered_site_list ? (
           <div>NO SITE</div>
         ) : (
-          site.site_list.map((item) => {
+          site.filtered_site_list.map((item) => {
             if (item.site_id === site.site.site_id && toggleEdit) {
               return (
                 <EditInputs

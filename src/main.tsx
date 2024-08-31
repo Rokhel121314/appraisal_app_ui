@@ -14,6 +14,7 @@ import SPALLCHome from "./pages/SPALLCHome/SPALLCHome.tsx";
 import CMGProjectList from "./pages/CMGProject/CMGProjectList/CMGProjectList.tsx";
 import GallagherProjectList from "./pages/GallagherProject/GallagherProjectList/GallagherProjectList.tsx";
 import GallagherSite from "./pages/GallagherProject/GallagherSite/GallagherSite.tsx";
+import GalllagherBVSFieldForm from "./pages/GallagherProject/GalllagherBVSFieldForm/GalllagherBVSFieldForm.tsx";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
       {
         path: "/spallc/gallagher/:entity_id",
         element: <GallagherSite />,
+      },
+
+      {
+        path: "/spallc/gallagher/bvs-field-form",
+        element: <GalllagherBVSFieldForm />,
       },
 
       {
