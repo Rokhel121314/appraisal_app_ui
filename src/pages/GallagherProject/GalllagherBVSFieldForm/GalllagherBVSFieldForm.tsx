@@ -16,7 +16,7 @@ const GalllagherBVSFieldForm = () => {
   console.log("USER:", user.user);
   return (
     <main className={styles.main_container}>
-      <PDFViewer width={"100%"} height={"100%"} showToolbar={true}>
+      <PDFViewer width={"99%"} height={"99%"} showToolbar={true}>
         <Document pageMode="useNone" pageLayout="singlePage">
           {site.filtered_site_list.map((sites) => {
             return (
