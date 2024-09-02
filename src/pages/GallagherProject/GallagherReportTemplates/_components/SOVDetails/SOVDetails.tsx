@@ -31,7 +31,7 @@ const SOVDetails = ({ year_built, sov_area, sov_rcn }: SOVDetailProps) => {
         <View style={one_column_wrapper}>
           <Text style={label_text}>SOV Gross Floor Area:</Text>
           <Text style={field_text}>
-            {!sov_area ? `0 sq.ft.` : `${!sov_area.toLocaleString()} sq.ft.`}
+            {!sov_area ? `0 sq.ft.` : `${sov_area.toLocaleString()} sq.ft.`}
           </Text>
         </View>
 
