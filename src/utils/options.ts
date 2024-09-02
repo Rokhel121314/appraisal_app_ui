@@ -118,6 +118,8 @@ export const roofGeometry: string[] = [
   "COMPLEX",
 ];
 
+export const roofPitched: string[] = ["Flat", "Low", "Medium", "High"];
+
 // EXTERIOR WALLS
 export const exteriorWallsList: string[] = [
   "Adobe Block",
@@ -165,6 +167,7 @@ export const floorFinishes: string[] = [
   "Hardwood",
   "Hardwood Gym Floor",
   "Linoleum",
+  "Laminated Wood",
   "Marble",
   "Pedestal",
   "Seamless",
@@ -239,6 +242,9 @@ export const fireSafety: string[] = [
   "EMERGENCY EXIT SIGNS/LIGHTINGS",
   "SECURITY CAMERAS/CCTV",
 ];
+
+export const electricalQuality: string[] = ["High", "Low", "Average", "None"];
+export const elevators: string[] = ["Passenger", "Freight"];
 
 export const buildingUseList: string[] = [
   "1100 - APARTMENT, LOW RISE (1 TO 4 STORIES)",
