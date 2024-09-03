@@ -16,7 +16,7 @@ Font.register({
 const styles_exterior_wall_finishes = StyleSheet.create({
   container: {
     width: "100%",
-    minHeight: 250,
+    minHeight: 265,
     height: "auto",
     backgroundColor: "white",
     flexDirection: "column",
@@ -52,7 +52,7 @@ const styles_exterior_wall_finishes = StyleSheet.create({
   },
 
   content_wrapper: {
-    height: 238,
+    height: 253,
     flexDirection: "row",
     paddingHorizontal: 3,
     alignItems: "flex-start",

@@ -153,6 +153,8 @@ export const exteriorWallsList: string[] = [
   'Stone, Solid 24" thick',
   "Stucco on Frame",
   "Stucco on Masonry",
+  "Siding, Half Log",
+  "Siding, Vinyl",
   "None",
 ];
 
