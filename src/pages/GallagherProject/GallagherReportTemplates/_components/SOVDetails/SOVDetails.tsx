@@ -5,6 +5,8 @@ export interface SOVDetailProps {
   year_built: string;
   sov_area: number | undefined;
   sov_rcn: number | undefined;
+  stories: number | undefined;
+  fire_sprinklers: string;
 }
 
 const {
@@ -14,9 +16,17 @@ const {
   one_column_wrapper,
   label_text,
   field_text,
+  sub_column_wrapper,
+  two_column_wrapper,
 } = styles_sov_details;
 
-const SOVDetails = ({ year_built, sov_area, sov_rcn }: SOVDetailProps) => {
+const SOVDetails = ({
+  year_built,
+  sov_area,
+  sov_rcn,
+  stories,
+  fire_sprinklers,
+}: SOVDetailProps) => {
   return (
     <View style={container}>
       <Text style={header_text}>SOV DETAILS</Text>
@@ -43,6 +53,22 @@ const SOVDetails = ({ year_built, sov_area, sov_rcn }: SOVDetailProps) => {
           <Text style={field_text}>
             {!sov_rcn ? `$ 0` : `$ ${sov_rcn.toLocaleString()}`}
           </Text>
+        </View>
+
+        {/* TWO COLUMN */}
+        <View style={two_column_wrapper}>
+          <View style={sub_column_wrapper}>
+            <Text style={label_text}>Number of Stories:</Text>
+            <Text style={field_text}>{`${!stories ? "" : stories}`}</Text>
+          </View>
+          <View
+            style={[sub_column_wrapper, { borderLeft: "0.5px solid #000" }]}
+          >
+            <Text style={label_text}>Fire Sprinkler:</Text>
+            <Text style={field_text}>{`${
+              !fire_sprinklers ? "" : fire_sprinklers
+            }`}</Text>
+          </View>
         </View>
       </View>
     </View>

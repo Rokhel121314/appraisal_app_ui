@@ -40,6 +40,9 @@ const GalllagherBVSFieldForm = () => {
                   year_built={sites.year_built}
                   sov_area={sites.sov_area}
                   sov_rcn={sites.sov_rcn}
+                  bvs_type={sites.bvs_type}
+                  stories={sites.stories}
+                  fire_sprinklers={sites.fire_sprinklers}
                 />
                 <BVSFieldForm2
                   key={sites.entity_site_building_number}

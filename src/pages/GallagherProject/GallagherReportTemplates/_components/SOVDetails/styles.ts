@@ -57,6 +57,22 @@ const styles_sov_details = StyleSheet.create({
     paddingVertical: 2,
     borderBottom: "0.5px solid #000",
   },
+  two_column_wrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 23,
+    borderBottom: "0.5px solid #000",
+  },
+
+  sub_column_wrapper: {
+    backgroundColor: "#d9d9d980",
+    flexDirection: "column",
+    height: "100%",
+    width: "50%",
+    paddingHorizontal: 3,
+    paddingVertical: 2,
+    gap: 4,
+  },
 });
 
 export default styles_sov_details;

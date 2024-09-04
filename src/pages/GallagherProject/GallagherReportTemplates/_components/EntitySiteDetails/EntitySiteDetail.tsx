@@ -12,6 +12,7 @@ export interface EntitySiteDetailProps {
   city: string;
   state: string;
   zip: string;
+  bvs_type: string;
 }
 
 const {
@@ -35,6 +36,7 @@ const EntitySiteDetail = ({
   city,
   state,
   zip,
+  bvs_type,
 }: EntitySiteDetailProps) => {
   return (
     <View style={container}>
@@ -131,7 +133,7 @@ const EntitySiteDetail = ({
             style={[sub_column_wrapper, { borderLeft: "0.5px solid #000" }]}
           >
             <Text style={label_text}>Value Basis:</Text>
-            <Text style={field_text}>{`New Construction`}</Text>
+            <Text style={field_text}>{`${bvs_type}`}</Text>
           </View>
         </View>
 

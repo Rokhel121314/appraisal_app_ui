@@ -20,6 +20,8 @@ interface BVSFieldFormProps extends EntitySiteDetailProps {
   year_built: string;
   sov_area: number | undefined;
   sov_rcn: number | undefined;
+  stories: number | undefined;
+  fire_sprinklers: string;
 }
 
 const BVSFieldForm1 = ({
@@ -38,6 +40,9 @@ const BVSFieldForm1 = ({
   year_built,
   sov_area,
   sov_rcn,
+  bvs_type,
+  stories,
+  fire_sprinklers,
 }: BVSFieldFormProps) => {
   return (
     <Page
@@ -72,6 +77,7 @@ const BVSFieldForm1 = ({
               city={city}
               state={state}
               zip={zip}
+              bvs_type={bvs_type}
             />
             <BuildingDetails
               building_name={building_name}
@@ -84,6 +90,8 @@ const BVSFieldForm1 = ({
               year_built={year_built}
               sov_area={sov_area}
               sov_rcn={sov_rcn}
+              stories={stories}
+              fire_sprinklers={fire_sprinklers}
             />
 
             <SectionDetails />
