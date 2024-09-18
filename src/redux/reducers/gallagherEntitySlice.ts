@@ -24,6 +24,7 @@ export interface GallagherEntityType {
 
 interface InitialStateType {
   entity: GallagherEntityType;
+  empty_entity: GallagherEntityType;
   entityList: GallagherEntityType[];
   status: "idle" | "loading" | "failed";
   message?: any;
@@ -31,6 +32,20 @@ interface InitialStateType {
 
 const initialState: InitialStateType = {
   entity: {
+    entity_name: "",
+    entity_number: "",
+    entity_address: "",
+    city: "",
+    state: "",
+    zip: "",
+    effective_date: "",
+    appraiser: "",
+    client: "",
+    entity_id: "",
+    date_created: "",
+    date_updated: "",
+  },
+  empty_entity: {
     entity_name: "",
     entity_number: "",
     entity_address: "",
@@ -59,6 +74,10 @@ export const gallagherEntitySlice = createSlice({
 
     selectEntity: (state, action) => {
       return { ...state, ...{ entity: action.payload } };
+    },
+
+    resetEntity: (state) => {
+      return { ...state, entity: initialState.entity };
     },
   },
   extraReducers: (build) => {
@@ -126,7 +145,7 @@ export const gallagherEntitySlice = createSlice({
   },
 });
 
-export const { resetGallagherEntityState, selectEntity } =
+export const { resetGallagherEntityState, selectEntity, resetEntity } =
   gallagherEntitySlice.actions;
 
 export default gallagherEntitySlice.reducer;

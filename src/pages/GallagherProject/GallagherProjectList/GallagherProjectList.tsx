@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
-import InputField from "../../../components/InputField/InputField";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import Button from "../../../components/Button/Button";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import {
   addGallagherEntity,
+  updateGallagherEntity,
   viewAllGallagherEntity,
 } from "../../../redux/extraReducers/gallagherEntityReducer";
-import { resetGallagherEntityState } from "../../../redux/reducers/gallagherEntitySlice";
+import {
+  resetEntity,
+  resetGallagherEntityState,
+} from "../../../redux/reducers/gallagherEntitySlice";
 import EntityTable from "../../../components/EntityTable/EntityTable";
+import MediumIcon from "../../../components/MediumIcon/MediumIcon";
+import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
+import LoadingModal from "../../../components/LoadingModal/LoadingModal";
 
 export interface EntityPayloadType {
   entity_name: string;
@@ -29,6 +34,15 @@ const GallagherProjectList = () => {
     (state: RootState) => state.gallagherEntity
   );
 
+  // const [toggleUpdate, setToggleUpdate] = useState(false);
+  const [toggleEdit, setToggleEdit] = useState(false);
+  const [toggleSaveChanges, setToggleSaveChanges] = useState(false);
+  const [toggleAddEntity, setToggleAddEntity] = useState(false);
+  // const [toggleDeleteModal, setToggleDeleteModal] = useState(false);
+  const [toggleUpdateModal, setToggleUpdateModal] = useState(false);
+  const [toggleSaveModal, setToggleSaveModal] = useState(false);
+  const [selectionDisabled, setSelectionDisabled] = useState(false);
+
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const [entityPayload, setEntityPayload] = useState<EntityPayloadType>({
     entity_name: gallagherEntity.entity.entity_name,
@@ -41,173 +55,167 @@ const GallagherProjectList = () => {
     appraiser: user.user.full_name,
   });
 
-  const buttonDisabled =
-    entityPayload.entity_name &&
-    entityPayload.entity_number &&
-    entityPayload.entity_address &&
-    entityPayload.city &&
-    entityPayload.state &&
-    entityPayload.zip &&
-    entityPayload.effective_date;
+  console.log("PAYLOAD:", entityPayload);
 
+  // SAVE ENTITY
   const handleSaveEntity = async () => {
     await dispatch(addGallagherEntity(entityPayload));
+    dispatch(resetGallagherEntityState());
     setTimeout(() => {
-      dispatch(resetGallagherEntityState());
-      window.location.reload();
+      dispatch(viewAllGallagherEntity());
+      setToggleAddEntity(false);
     }, 500);
+  };
+
+  // UPDATE ENTITY
+  const handleUpdateEntity = async () => {
+    await dispatch(
+      updateGallagherEntity({
+        entity_id: gallagherEntity.entity.entity_id,
+        entity: entityPayload,
+      })
+    );
+    await dispatch(viewAllGallagherEntity());
+    dispatch(resetEntity());
+    setToggleSaveChanges(false);
+    setSelectionDisabled(false);
   };
 
   useEffect(() => {
     dispatch(viewAllGallagherEntity());
   }, []);
 
+  const handleToggleNewEntity = () => {
+    setToggleAddEntity((prev) => !prev);
+  };
+
+  const handleToggleSaveModal = () => {
+    setToggleSaveModal((prev) => !prev);
+  };
+
+  const handleToggleEdit = () => {
+    if (toggleEdit) {
+      setToggleEdit(false);
+      setSelectionDisabled(false);
+      dispatch(resetEntity());
+    } else {
+      setToggleEdit(true);
+      setSelectionDisabled(true);
+    }
+  };
+
+  const handleToggleSaveChanges = () => {
+    setToggleSaveChanges((prev) => !prev);
+  };
+
+  const handleToggleUpdateModal = () => {
+    setToggleUpdateModal((prev) => !prev);
+  };
+
   return (
     <main className={styles.container}>
       {/* INPUT HANDLER */}
       <div className={styles.input_container}>
-        <div className={styles.header_text}>NEW GALLAGHER PROJECT</div>
-        <div className={styles.input_wrapper}>
-          <div className={styles.col_3}>
-            <InputField
-              height={"25px"}
-              marginTop="0px"
-              label="Entity Name:"
-              placeholder="entity name..."
-              type="text"
-              required={true}
-              disabled={false}
-              initialValue={entityPayload.entity_name}
-              name={"entity_name"}
-              checkSpell={true}
-              onChangeText={(value) => {
-                setEntityPayload({ ...entityPayload, entity_name: value });
-              }}
-            />
-          </div>
-          <div className={styles.col_1}>
-            <InputField
-              height={"25px"}
-              marginTop="0px"
-              label="Entity #:"
-              placeholder="entity #..."
-              name={"entity_number"}
-              type="text"
-              required={true}
-              disabled={false}
-              initialValue={entityPayload.entity_number}
-              onChangeText={(value) => {
-                setEntityPayload({ ...entityPayload, entity_number: value });
-              }}
-            />
-          </div>
-          <div className={styles.col_3}>
-            <InputField
-              height={"25px"}
-              marginTop="0px"
-              label="Entity Address:"
-              placeholder="address..."
-              name={"entity_address"}
-              type="text"
-              required={true}
-              disabled={false}
-              initialValue={entityPayload.entity_address}
-              checkSpell={true}
-              onChangeText={(value) => {
-                setEntityPayload({ ...entityPayload, entity_address: value });
-              }}
-            />
-          </div>
+        <MediumIcon
+          title={!toggleAddEntity ? "NEW PROJECT" : "CLOSE"}
+          onClick={() => {
+            handleToggleNewEntity();
+            dispatch(resetEntity());
+            setEntityPayload({
+              entity_name: gallagherEntity.empty_entity.entity_name,
+              entity_number: gallagherEntity.empty_entity.entity_number,
+              entity_address: gallagherEntity.empty_entity.entity_address,
+              city: gallagherEntity.empty_entity.city,
+              state: gallagherEntity.empty_entity.state,
+              zip: gallagherEntity.empty_entity.zip,
+              effective_date: gallagherEntity.empty_entity.effective_date,
+              appraiser: user.user.full_name,
+            });
+          }}
+          icon="/logo/file.png"
+        />
 
-          <div className={styles.col_1}>
-            <InputField
-              height={"25px"}
-              marginTop="0px"
-              label="City:"
-              placeholder="city..."
-              name={"city"}
-              type="text"
-              required={true}
-              disabled={false}
-              initialValue={entityPayload.city}
-              onChangeText={(value) => {
-                setEntityPayload({ ...entityPayload, city: value });
-              }}
-            />
-          </div>
-
-          <div className={styles.col_1}>
-            <InputField
-              height={"25px"}
-              marginTop="0px"
-              label="State:"
-              placeholder="state..."
-              name={"state"}
-              type="text"
-              required={true}
-              disabled={false}
-              initialValue={entityPayload.state}
-              onChangeText={(value) => {
-                setEntityPayload({ ...entityPayload, state: value });
-              }}
-            />
-          </div>
-
-          <div className={styles.col_1}>
-            <InputField
-              height={"25px"}
-              marginTop="0px"
-              label="Zip:"
-              placeholder="zip..."
-              name={"zip"}
-              type="text"
-              required={true}
-              disabled={false}
-              initialValue={entityPayload.zip}
-              onChangeText={(value) => {
-                setEntityPayload({ ...entityPayload, zip: value });
-              }}
-            />
-          </div>
-
-          <div className={styles.col_1}>
-            <InputField
-              height={"25px"}
-              marginTop="0px"
-              label="Effective Date:"
-              placeholder="Type here..."
-              name={"effective_date"}
-              type="date"
-              required={true}
-              disabled={false}
-              initialValue={entityPayload.effective_date}
-              onChangeText={(value) => {
-                setEntityPayload({ ...entityPayload, effective_date: value });
-              }}
-            />
-          </div>
-
-          <div style={{ marginTop: "20px", width: "8%" }}>
-            <Button
-              width="100%"
-              height="35px"
-              title={
-                gallagherEntity.status === "loading" ? "SAVING..." : "SAVE"
-              }
-              disabled={!buttonDisabled}
+        <div className={styles.table_functions}>
+          {!gallagherEntity.entity.entity_id ? (
+            ""
+          ) : (
+            <MediumIcon
+              title={toggleEdit ? "CANCEL EDIT" : "EDIT ENTITY"}
               onClick={() => {
-                handleSaveEntity();
+                setEntityPayload(gallagherEntity.entity);
+                handleToggleSaveChanges();
+                handleToggleEdit();
               }}
+              icon="/logo/file.png"
             />
-          </div>
+          )}
+
+          {!toggleSaveChanges ? null : (
+            <MediumIcon
+              title={"SAVE CHANGES"}
+              onClick={() => {
+                handleToggleUpdateModal();
+              }}
+              icon="/logo/file.png"
+            />
+          )}
+
+          {!toggleAddEntity ? null : (
+            <MediumIcon
+              title={"SAVE NEW PROJECT"}
+              onClick={() => {
+                handleToggleSaveModal();
+              }}
+              icon="/logo/file.png"
+            />
+          )}
         </div>
       </div>
       {/* TABLE */}
 
       <div className={styles.search_container}>SEARCH BOX</div>
+
+      {/* TABELE */}
       <div className={styles.table_container}>
-        <EntityTable entityArray={gallagherEntity.entityList} />
+        <EntityTable
+          entityArray={gallagherEntity.entityList}
+          entityPayload={entityPayload}
+          setEntityPayload={setEntityPayload}
+          toggleAddEntity={toggleAddEntity}
+          toggleEdit={toggleEdit}
+          setToggleEdit={setToggleEdit}
+          selectionDisabled={selectionDisabled}
+        />
       </div>
+      {/* SAVE NEW MODAL */}
+      <ConfirmationModal
+        title={"Confirm Save!"}
+        detail={`Add   ${entityPayload.entity_name}?`}
+        modal_toggle={toggleSaveModal}
+        confirmFunction={() => {
+          handleSaveEntity();
+        }}
+        cancelFunction={() => {}}
+        toggleFunction={() => {
+          handleToggleSaveModal();
+        }}
+      />
+
+      {/* UPDATE MODAL */}
+      <ConfirmationModal
+        title={"Confirm UPDATE!"}
+        detail={`Save changes to  ${gallagherEntity.entity.entity_name.toUpperCase()} `}
+        modal_toggle={toggleUpdateModal}
+        confirmFunction={() => {
+          handleUpdateEntity();
+        }}
+        cancelFunction={() => {}}
+        toggleFunction={() => {
+          handleToggleUpdateModal();
+        }}
+      />
+
+      <LoadingModal status={gallagherEntity.status} />
     </main>
   );
 };

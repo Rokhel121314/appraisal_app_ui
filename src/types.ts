@@ -1,5 +1,4 @@
 export interface GallagherSiteType {
-  entity_site_building_number: string;
   site_number: string;
   site_name: string;
   site_address: string;
@@ -17,7 +16,7 @@ export interface GallagherSiteType {
   inspection_date: string;
   year_built: string;
   building_use: string;
-  stories: number | undefined;
+  stories: string;
   average_height: number | undefined;
   area_main: number | undefined;
   area_basement: number | undefined;
@@ -48,7 +47,32 @@ export interface GallagherSiteType {
   cost_new: number | undefined;
   cost_new_less_exclusions: number | undefined;
   exclusions: number | undefined;
+  other_valuation_1: {
+    valuation_name: string;
+    valuation_amount: number | undefined;
+  };
+
+  other_valuation_2: {
+    valuation_name: string;
+    valuation_amount: number | undefined;
+  };
+
   rcn_per_area: number | undefined;
   bvs_type: string;
+
+  bvs_file: {
+    pdf_name: string;
+    pdf_url: string;
+  };
+
+  writeup_image_file: {
+    image_name: string;
+    image_url: string;
+  };
+
+  image_file: {
+    image_name: string;
+    image_url: string;
+  };
   entity_id: string;
 }

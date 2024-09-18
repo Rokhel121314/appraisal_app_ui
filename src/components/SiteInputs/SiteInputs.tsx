@@ -112,11 +112,11 @@ const SiteInputs = ({
             height={"25px"}
             marginTop="0px"
             label="Entity-Site-Building Number:"
-            placeholder={sitePayload.entity_site_building_number}
+            placeholder={`${entity.entity.entity_number}-${sitePayload.site_number}-${sitePayload.building_number}`}
             type="text"
             required={true}
             disabled={true}
-            initialValue={site.site.entity_site_building_number}
+            initialValue={`${entity.entity.entity_number}-${site.site.site_number}-${site.site.building_number}`}
             name={"entity_site_building_number"}
             checkSpell={true}
             onChangeText={() => {}}
@@ -473,7 +473,7 @@ const SiteInputs = ({
             onChangeText={(value) => {
               setSitePayload({
                 ...sitePayload,
-                stories: parseFloat(value),
+                stories: value,
               });
             }}
           />
