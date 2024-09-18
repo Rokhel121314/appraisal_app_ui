@@ -1,19 +1,12 @@
 import styles from "./styles.module.css";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import { Oval } from "react-loader-spinner";
 
-//CONFIRMATION MODAL
-//   const [toggleUpdate, setToggleUpdate] = useState(false);
-
-//   const handleToggleUpdate = () => {
-//     setToggleUpdate((prev) => !prev);
-//   };
-
-const LoadingModal = () => {
+const LoadingModal = ({
+  status,
+}: {
+  status: "loading" | "idle" | "failed";
+}) => {
   //
-
-  const status = useSelector((state: RootState) => state.gallagherSite.status);
 
   return (
     <>

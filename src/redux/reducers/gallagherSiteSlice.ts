@@ -27,7 +27,6 @@ interface InitialStateType {
 
 const initialState: InitialStateType = {
   site: {
-    entity_site_building_number: "",
     site_number: "",
     site_name: "",
     site_address: "",
@@ -45,7 +44,7 @@ const initialState: InitialStateType = {
     inspection_date: "",
     year_built: "",
     building_use: "",
-    stories: undefined,
+    stories: "",
     average_height: undefined,
     area_main: undefined,
     area_basement: 0,
@@ -78,13 +77,36 @@ const initialState: InitialStateType = {
     exclusions: undefined,
     rcn_per_area: undefined,
     bvs_type: "Reconstruction",
+    other_valuation_1: {
+      valuation_name: "",
+      valuation_amount: undefined,
+    },
+
+    other_valuation_2: {
+      valuation_name: "",
+      valuation_amount: undefined,
+    },
+
+    bvs_file: {
+      pdf_name: "",
+      pdf_url: "",
+    },
+
+    writeup_image_file: {
+      image_name: "",
+      image_url: "",
+    },
+
+    image_file: {
+      image_name: "",
+      image_url: "",
+    },
     entity_id: "",
     site_id: "",
     date_created: "",
     data_updated: "",
   },
   empty_site: {
-    entity_site_building_number: "",
     site_number: "",
     site_name: "",
     site_address: "",
@@ -102,7 +124,7 @@ const initialState: InitialStateType = {
     inspection_date: "",
     year_built: "",
     building_use: "",
-    stories: undefined,
+    stories: "",
     average_height: undefined,
     area_main: undefined,
     area_basement: 0,
@@ -135,6 +157,30 @@ const initialState: InitialStateType = {
     exclusions: undefined,
     rcn_per_area: undefined,
     bvs_type: "Reconstruction",
+    other_valuation_1: {
+      valuation_name: "",
+      valuation_amount: undefined,
+    },
+
+    other_valuation_2: {
+      valuation_name: "",
+      valuation_amount: undefined,
+    },
+
+    bvs_file: {
+      pdf_name: "",
+      pdf_url: "",
+    },
+
+    writeup_image_file: {
+      image_name: "",
+      image_url: "",
+    },
+
+    image_file: {
+      image_name: "",
+      image_url: "",
+    },
     entity_id: "",
     site_id: "",
     date_created: "",
@@ -167,7 +213,8 @@ export const gallagherSiteSlice = createSlice({
     },
     searchFilter: (state, action) => {
       state.filtered_site_list = state.site_list.filter((item) => {
-        return item.entity_site_building_number
+        const site_building_number = `${item.site_number}`;
+        return site_building_number
           .toLowerCase()
           .includes(action.payload.toLowerCase());
       });
@@ -224,7 +271,15 @@ export const gallagherSiteSlice = createSlice({
         return {
           ...state,
           ...{ site_list: action.payload },
-          ...{ filtered_site_list: action.payload },
+          ...{
+            filtered_site_list: action.payload.sort(
+              (a: GallagherSiteSliceType, b: GallagherSiteSliceType) =>
+                a.site_number + a.building_number >
+                b.site_number + b.building_number
+                  ? 1
+                  : -1
+            ),
+          },
           ...{ status: "idle" },
           ...{ message: "SITES ADDED SUCCESSFULLY!" },
         };

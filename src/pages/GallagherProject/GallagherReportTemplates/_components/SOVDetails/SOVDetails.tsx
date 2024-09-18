@@ -5,7 +5,7 @@ export interface SOVDetailProps {
   year_built: string;
   sov_area: number | undefined;
   sov_rcn: number | undefined;
-  stories: number | undefined;
+  stories: string;
   fire_sprinklers: string;
 }
 

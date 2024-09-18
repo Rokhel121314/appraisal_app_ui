@@ -84,6 +84,27 @@ const useUploadExcelFile = (entity_id: string) => {
           exclusions: item["EXCLUSIONS"],
           rcn_per_area: item["RCN PER SQ.FT"],
           bvs_type: "Reconstruction",
+          other_valuation_1: {
+            valuation_name: item["OTHER VALUATION NAME_1"],
+            valuation_amount: item["OTHER VALUATION AMOUNT_1"],
+          },
+          other_valuation_2: {
+            valuation_name: item["OTHER VALUATION NAME_2"],
+            valuation_amount: item["OTHER VALUATION AMOUNT_2"],
+          },
+
+          writeup_image_file: {
+            image_name: "",
+            image_url: "",
+          },
+          bvs_file: {
+            pdf_name: "",
+            pdf_url: "",
+          },
+          image_file: {
+            image_name: "",
+            image_url: "",
+          },
           entity_id: entity_id,
         };
       });

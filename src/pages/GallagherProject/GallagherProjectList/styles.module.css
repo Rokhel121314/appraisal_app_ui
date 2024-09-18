@@ -10,12 +10,12 @@
 
 .input_container {
   margin-top: 25px;
-  height: 80px;
+  height: 40px;
   width: calc(100vw - 60px);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .header_text {
@@ -60,6 +60,16 @@
   width: calc(100vw - 60px);
   height: 100%;
   color: #80000b;
-  overflow: hidden;
+  overflow: auto;
   /* background-color: aqua; */
+}
+
+.table_functions {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-right: 10px;
 }

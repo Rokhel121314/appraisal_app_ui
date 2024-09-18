@@ -97,33 +97,15 @@ const EditInputs = ({
     }));
   }, [sitePayload.area_total, sitePayload.cost_new]);
 
-  //  GETTING ENTITY-SITE-BUILDING NUMBER
-
-  useEffect(() => {
-    const entity_site_building_number = `${entity.entity.entity_number}-${sitePayload.site_number}-${sitePayload.building_number}`;
-
-    setSitePayload((prev) => ({
-      ...prev,
-      entity_site_building_number: entity_site_building_number,
-    }));
-  }, [sitePayload.site_number, sitePayload.building_number]);
+  const entity_site_building_number = `${entity.entity.entity_number}-${sitePayload.site_number}-${sitePayload.building_number}`;
+  console.log("ENTITY_SITE_BUILDING#:", entity_site_building_number);
 
   return (
     <main className={styles.input_wrapper}>
       <div className={styles.col_2}>
-        <EditInputField
-          height={"25px"}
-          marginTop="0px"
-          label="Entity-Site-Building Number:"
-          placeholder={sitePayload.entity_site_building_number}
-          type="text"
-          required={true}
-          disabled={true}
-          initialValue={site.site.entity_site_building_number}
-          name={"entity_site_building_number"}
-          checkSpell={true}
-          onChangeText={() => {}}
-        />
+        <span style={{ paddingLeft: "5px" }}>
+          {entity_site_building_number}
+        </span>
       </div>
       <div className={styles.col_1}>
         <EditInputField
@@ -476,7 +458,7 @@ const EditInputs = ({
           onChangeText={(value) => {
             setSitePayload({
               ...sitePayload,
-              stories: parseFloat(value),
+              stories: value,
             });
           }}
         />
@@ -1007,6 +989,7 @@ const EditInputs = ({
           }}
         />
       </div>
+      {/*  */}
       <div className={styles.col_1}>
         <EditInputField
           height={"25px"}
@@ -1027,6 +1010,7 @@ const EditInputs = ({
           }}
         />
       </div>
+      {/*  */}
       <div className={styles.col_2}>
         <EditInputField
           height={"25px"}
@@ -1044,6 +1028,107 @@ const EditInputs = ({
           name={"cost_new_less_exclusions"}
           checkSpell={true}
           onChangeText={() => {}}
+        />
+      </div>
+      {/* OTHER VALUATION NAME 1 */}
+      <div className={styles.col_2}>
+        <EditInputField
+          height={"25px"}
+          marginTop="0px"
+          label="Exclusions ( $ ):"
+          placeholder="other valuation name..."
+          type="text"
+          required={false}
+          disabled={false}
+          initialValue={site.site.other_valuation_1.valuation_name}
+          name={"other valuation name 1"}
+          checkSpell={true}
+          onChangeText={(value) => {
+            setSitePayload({
+              ...sitePayload,
+              other_valuation_1: {
+                valuation_name: value,
+                valuation_amount:
+                  sitePayload.other_valuation_1.valuation_amount,
+              },
+            });
+          }}
+        />
+      </div>
+
+      {/* OTHER VALUATION AMOUNT 1 */}
+      <div className={styles.col_2}>
+        <EditInputField
+          height={"25px"}
+          marginTop="0px"
+          label="Exclusions ( $ ):"
+          placeholder="other valuation amount 1..."
+          type="number"
+          required={false}
+          disabled={false}
+          initialValue={site.site.other_valuation_1.valuation_amount}
+          name={"other valuation number 1"}
+          checkSpell={true}
+          onChangeText={(value) => {
+            setSitePayload({
+              ...sitePayload,
+              other_valuation_1: {
+                valuation_name: sitePayload.other_valuation_1.valuation_name,
+                valuation_amount: parseFloat(value),
+              },
+            });
+          }}
+        />
+      </div>
+
+      {/* OTHER VALUATION NAME 1 */}
+      <div className={styles.col_2}>
+        <EditInputField
+          height={"25px"}
+          marginTop="0px"
+          label="Exclusions ( $ ):"
+          placeholder="other valuation name..."
+          type="text"
+          required={false}
+          disabled={false}
+          initialValue={site.site.other_valuation_2.valuation_name}
+          name={"other valuation name 1"}
+          checkSpell={true}
+          onChangeText={(value) => {
+            setSitePayload({
+              ...sitePayload,
+              other_valuation_2: {
+                valuation_name: value,
+                valuation_amount:
+                  sitePayload.other_valuation_2.valuation_amount,
+              },
+            });
+          }}
+        />
+      </div>
+
+      {/*  OTHER VALUATION AMOUNT 2*/}
+      <div className={styles.col_2}>
+        <EditInputField
+          height={"25px"}
+          marginTop="0px"
+          label="Exclusions ( $ ):"
+          placeholder="other valuation amount 1..."
+          type="number"
+          required={false}
+          disabled={false}
+          initialValue={site.site.other_valuation_2.valuation_amount}
+          name={"other valuation number 1"}
+          checkSpell={true}
+          onChangeText={(value) => {
+            setSitePayload({
+              ...sitePayload,
+              other_valuation_2: {
+                valuation_name: sitePayload.other_valuation_2.valuation_name,
+                valuation_amount: parseFloat(value),
+              },
+            });
+          }}
         />
       </div>
       <div className={styles.col_1}>

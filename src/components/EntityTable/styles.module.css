@@ -17,7 +17,11 @@
 }
 
 .table_rows {
+  border: none;
+  padding: none;
+  text-align: start;
   height: 30px;
+  width: 100%;
   border-bottom: 0.5px solid #80000b30;
   display: flex;
   justify-content: space-between;
@@ -28,7 +32,11 @@
 
 .table_rows:hover {
   border-bottom: 2px solid #80000b70;
-  font-size: 12.5px;
+}
+
+.table_rows:focus {
+  background-color: #80000b10;
+  border-bottom: 0.5px solid #80000b;
 }
 
 .col_1 {

@@ -36,7 +36,6 @@ const GallagherSite = () => {
   );
 
   const [sitePayload, setSitePayload] = useState<GallagherSiteType>({
-    entity_site_building_number: gallagherSite.entity_site_building_number,
     site_number: gallagherSite.site_number,
     site_name: gallagherSite.site_name,
     site_address: gallagherSite.site_address,
@@ -87,6 +86,27 @@ const GallagherSite = () => {
     exclusions: gallagherSite.exclusions,
     rcn_per_area: gallagherSite.rcn_per_area,
     bvs_type: "Replacement",
+    other_valuation_1: {
+      valuation_name: gallagherSite.other_valuation_1?.valuation_name,
+      valuation_amount: gallagherSite.other_valuation_1?.valuation_amount,
+    },
+    other_valuation_2: {
+      valuation_name: gallagherSite.other_valuation_2?.valuation_name,
+      valuation_amount: gallagherSite.other_valuation_2?.valuation_amount,
+    },
+    bvs_file: {
+      pdf_name: gallagherSite.bvs_file?.pdf_name,
+      pdf_url: gallagherSite.bvs_file?.pdf_url,
+    },
+    writeup_image_file: {
+      image_name: gallagherSite.writeup_image_file?.image_name,
+      image_url: gallagherSite.writeup_image_file?.image_url,
+    },
+    image_file: {
+      image_name: gallagherSite.writeup_image_file?.image_name,
+      image_url: gallagherSite.writeup_image_file?.image_url,
+    },
+
     entity_id: entity.entity.entity_id,
   });
 
@@ -109,6 +129,7 @@ const GallagherSite = () => {
   const [toggleDeleteModal, setToggleDeleteModal] = useState(false);
   const [toggleUpdateModal, setToggleUpdateModal] = useState(false);
   const [toggleSaveModal, setToggleSaveModal] = useState(false);
+  const [selectionDisabled, setSelectionDisabled] = useState(false);
   // const [search, setSearch] = useState("");
 
   // handleSearchFilter("ALL");
@@ -127,9 +148,11 @@ const GallagherSite = () => {
   const handleToggleEdit = () => {
     if (toggleEdit) {
       setToggleEdit(false);
+      setSelectionDisabled(false);
       dispatch(resetSite());
     } else {
       setToggleEdit(true);
+      setSelectionDisabled(true);
     }
   };
 
@@ -184,6 +207,7 @@ const GallagherSite = () => {
     await dispatch(viewGallagherSitesPerEntity(entity.entity.entity_id));
     dispatch(resetSite());
     setToggleSaveChanges(false);
+    setSelectionDisabled(false);
   };
 
   // DELETE SITE
@@ -197,7 +221,7 @@ const GallagherSite = () => {
   // SEARCH FILTER
 
   const site_number_list = [
-    ...new Set(site.site_list.flatMap((item) => item.site_number)),
+    ...new Set(site.site_list.flatMap((item) => `${item.site_number}`)),
   ];
 
   const navigate = useNavigate();
@@ -254,9 +278,9 @@ const GallagherSite = () => {
 
           <div className={styles.filterContainer}>
             <EditDropdownInput
-              placeholder="filter by site number..."
+              placeholder="Filter by Entity-Site #"
               select_options={site_number_list}
-              label="Filter by Site Number"
+              label="Filter by Entity-Site #"
               list={"site_number"}
               name={"site_numbers"}
               required={false}
@@ -331,6 +355,7 @@ const GallagherSite = () => {
               setToggleEdit={setToggleEdit}
               toggleAddSite={toggleAddSite}
               setToggleAddSite={setToggleAddSite}
+              selectionDisabled={selectionDisabled}
             />
           )}
         </div>
@@ -351,7 +376,7 @@ const GallagherSite = () => {
       {/* DELETE MODAL */}
       <ConfirmationModal
         title={"Confirm DELETE!"}
-        detail={`Delete ${site.site.entity_site_building_number} `}
+        detail={`Delete ${entity.entity.entity_number}-${site.site.site_number}-${site.site.building_number} `}
         modal_toggle={toggleDeleteModal}
         confirmFunction={() => {
           handleDeleteSite();
@@ -365,7 +390,7 @@ const GallagherSite = () => {
       {/* UPDATE MODAL */}
       <ConfirmationModal
         title={"Confirm UPDATE!"}
-        detail={`Save changes to ${site.site.entity_site_building_number} `}
+        detail={`Save changes to  ${entity.entity.entity_number}-${site.site.site_number}-${site.site.building_number} `}
         modal_toggle={toggleUpdateModal}
         confirmFunction={() => {
           handleUpdateSite();
@@ -379,7 +404,7 @@ const GallagherSite = () => {
       {/* SAVE NEW MODAL */}
       <ConfirmationModal
         title={"Confirm ADD!!"}
-        detail={`Add  ${sitePayload.entity_site_building_number} ?`}
+        detail={`Add   ${entity.entity.entity_number}-${sitePayload.site_number}-${sitePayload.building_number} ?`}
         modal_toggle={toggleSaveModal}
         confirmFunction={() => {
           handleSaveSite();
@@ -391,7 +416,7 @@ const GallagherSite = () => {
       />
 
       {/* SAVE NEW MODAL */}
-      <LoadingModal />
+      <LoadingModal status={site.status} />
     </main>
   );
 };

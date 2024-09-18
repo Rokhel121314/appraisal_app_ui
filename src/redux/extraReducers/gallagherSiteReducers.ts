@@ -46,6 +46,7 @@ export const viewGallagherSitesPerEntity = createAsyncThunk(
         `/gallagher_site/view_entity_sites/${payload}`,
         { withCredentials: true }
       );
+
       return sites.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data.message);

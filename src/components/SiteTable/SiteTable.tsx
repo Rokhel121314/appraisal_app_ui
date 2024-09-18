@@ -12,6 +12,7 @@ const SiteTable = ({
   toggleEdit = false,
   setToggleEdit,
   toggleAddSite = false,
+  selectionDisabled = false,
 }: {
   sitePayload: GallagherSiteType;
   setSitePayload: React.Dispatch<React.SetStateAction<GallagherSiteType>>;
@@ -19,9 +20,13 @@ const SiteTable = ({
   setToggleEdit: React.Dispatch<React.SetStateAction<boolean>>;
   toggleAddSite: boolean;
   setToggleAddSite: React.Dispatch<React.SetStateAction<boolean>>;
+  selectionDisabled: boolean;
 }) => {
   const site = useSelector((state: RootState) => state.gallagherSite);
+  const entity = useSelector((state: RootState) => state.gallagherEntity);
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  console.log("SITE PAYLOAD:", sitePayload);
 
   // console.log("SITE:", site.site);
 
@@ -78,6 +83,10 @@ const SiteTable = ({
           <div className={styles.col_1}>R Cost New</div>
           <div className={styles.col_1}>Exclusions</div>
           <div className={styles.col_2}>R Cost New Less Exclusions</div>
+          <div className={styles.col_2}>Other Valuations Name 1</div>
+          <div className={styles.col_2}>Other Valuation Amount 1</div>
+          <div className={styles.col_2}>Other Valuation Name 2</div>
+          <div className={styles.col_2}>Other Valuation Amount 2</div>
           <div className={styles.col_1}>{`Cost per SQ.FT.`}</div>
           <div className={styles.col_1}>BVS Type</div>
           <div className={styles.col_1}>{`RCN/SOV.`}</div>
@@ -106,6 +115,7 @@ const SiteTable = ({
               return (
                 <button
                   className={styles.table_row}
+                  disabled={selectionDisabled}
                   key={item.site_id}
                   onClick={async () => {
                     await dispatch(selectSite(item));
@@ -117,15 +127,19 @@ const SiteTable = ({
                 >
                   {/* ENTITY-SITE-BUILDING NUMBER */}
                   <div
-                    className={
-                      item.entity_site_building_number
-                        ? styles.col_2
-                        : styles.empty_2
+                    className={styles.col_2}
+                    style={{
+                      textDecoration: "underline",
+                      color: "Highlight",
+                      cursor: "pointer",
+                    }}
+                    onClick={() =>
+                      alert(
+                        `redirect to site ${entity.entity.entity_number}-${item.site_number}-${item.building_number}`
+                      )
                     }
                   >
-                    {!item.entity_site_building_number
-                      ? "-"
-                      : item.entity_site_building_number}
+                    {`${entity.entity.entity_number}-${item.site_number}-${item.building_number}`}
                   </div>
 
                   {/* SITE NUMBER */}
@@ -528,6 +542,58 @@ const SiteTable = ({
                     {!item.cost_new_less_exclusions
                       ? "-"
                       : item.cost_new_less_exclusions.toLocaleString()}
+                  </div>
+
+                  {/* VALUATION NAME 1 */}
+                  <div
+                    className={
+                      item.other_valuation_1.valuation_name
+                        ? styles.col_2
+                        : styles.empty_2
+                    }
+                  >
+                    {!item.other_valuation_1.valuation_name
+                      ? "-"
+                      : item.other_valuation_1.valuation_name.toLocaleString()}
+                  </div>
+
+                  {/* VALUATION AMOUNT 1 */}
+                  <div
+                    className={
+                      item.other_valuation_1.valuation_amount
+                        ? styles.col_2
+                        : styles.empty_2
+                    }
+                  >
+                    {!item.other_valuation_1.valuation_amount
+                      ? "-"
+                      : item.other_valuation_1.valuation_amount.toLocaleString()}
+                  </div>
+
+                  {/* VALUATION NAME 2 */}
+                  <div
+                    className={
+                      item.other_valuation_2.valuation_name
+                        ? styles.col_2
+                        : styles.empty_2
+                    }
+                  >
+                    {!item.other_valuation_2.valuation_name
+                      ? "-"
+                      : item.other_valuation_2.valuation_name.toLocaleString()}
+                  </div>
+
+                  {/* VALUATION AMOUNT 2 */}
+                  <div
+                    className={
+                      item.other_valuation_2.valuation_amount
+                        ? styles.col_2
+                        : styles.empty_2
+                    }
+                  >
+                    {!item.other_valuation_2.valuation_amount
+                      ? "-"
+                      : item.other_valuation_2.valuation_amount.toLocaleString()}
                   </div>
 
                   {/* COST PER SQ.FT */}
